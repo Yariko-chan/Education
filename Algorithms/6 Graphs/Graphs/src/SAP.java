@@ -3,6 +3,7 @@
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Topological;
 
 import java.util.ArrayList;
 import java.util.Iterator;
