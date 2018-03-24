@@ -9,6 +9,35 @@ public class WordNet {
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms) {
+        Map<String, Integer> stringToId = new HashMap<>();
+        Map<Integer, String[]> idToString = new HashMap<>();
+
+        In in = new In(synsets);
+        while (in.hasNextLine()) {
+            String synonim = in.readLine();
+            String[] parts = synonim.split(",");
+            int id = Integer.valueOf(parts[0]);
+            String[] syns = parts[1].split("\b \b");
+            idToString.put(id, syns);
+            for (String s : syns) {
+                stringToId.put(s, id);
+            }
+        }
+        in.close();
+
+        Digraph dg = new Digraph(idToString.size());
+        in = new In(hypernyms);
+        while (in.hasNextLine()) {
+            String hypernym = in.readLine();
+            String[] parts = hypernym.split(",");
+            int from = Integer.valueOf(parts[0]);
+            for (int i = 1; i < parts.length; i++) {
+                int to = Integer.valueOf(parts[i]);
+                dg.addEdge(from, to);
+            }
+        }
+
+        String s = "123";
     }
 
     // returns all WordNet nouns
@@ -41,5 +70,6 @@ public class WordNet {
 
     // do unit testing of this class
     public static void main(String[] args) {
+        WordNet wordNet = new WordNet(args[0], args[1]);
     }
 }
