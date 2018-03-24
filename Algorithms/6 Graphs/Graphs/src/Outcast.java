@@ -21,7 +21,7 @@ public class Outcast {
         int minSum = Integer.MAX_VALUE;
         for (String noun : nouns) {
             int distSum = 0;
-            for (String s : nouns){
+            for (String s : nouns) {
                 if (!s.equals(noun)) {
                     distSum += wordnet.distance(noun, s);
                 }

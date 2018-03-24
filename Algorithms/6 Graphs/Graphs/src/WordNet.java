@@ -1,5 +1,4 @@
 
-import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Topological;
@@ -10,6 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class WordNet {
+    SAP sap;
     private Digraph dg;
     private Map<String, Integer> stringToId;
     private Map<Integer, String[]> idToString;
@@ -26,7 +26,7 @@ public class WordNet {
         while (in.hasNextLine()) {
             String synonim = in.readLine();
             String[] parts = synonim.split(",");
-            int id = Integer.valueOf(parts[0]);
+            int id = Integer.parseInt(parts[0]);
             String[] syns = parts[1].split(" ");
             idToString.put(id, syns);
             for (String s : syns) {
@@ -46,25 +46,12 @@ public class WordNet {
                 dg.addEdge(from, to);
             }
         }
+        sap = new SAP(dg);
 
         // check graph is rooted DAG
-        Digraph revers = dg.reverse();
-        Topological t = new Topological(revers);
+        Topological t = new Topological(dg);
         if (!t.hasOrder()) {
             throw new IllegalArgumentException("Graph doesnt have order");
-        }
-        Iterator<Integer> iterator = t.order().iterator();
-        int root = iterator.next();
-        BreadthFirstDirectedPaths reverseBFO = new BreadthFirstDirectedPaths(revers, root);
-        boolean result = true;
-        while (iterator.hasNext()) {
-            if (!reverseBFO.hasPathTo(iterator.next())) {
-                result = false;
-                break;
-            }
-        }
-        if (!result) {
-            throw new IllegalArgumentException("Graph isnt rooted DAG");
         }
     }
 
@@ -78,8 +65,7 @@ public class WordNet {
         if (word == null) {
             throw new IllegalArgumentException();
         }
-        ArrayList<String> strings = new ArrayList<>(stringToId.keySet());
-        return strings.contains(word);
+        return stringToId.containsKey(word);
     }
 
     // distance between nounA and nounB (defined below)
@@ -89,7 +75,6 @@ public class WordNet {
         }
         int aId = stringToId.get(nounA);
         int bId = stringToId.get(nounB);
-        SAP sap = new SAP(dg);
         return sap.length(aId, bId);
     }
 
@@ -101,7 +86,6 @@ public class WordNet {
         }
         int aId = stringToId.get(nounA);
         int bId = stringToId.get(nounB);
-        SAP sap = new SAP(dg);
         int sapId = sap.ancestor(aId, bId);
         String[] syns = idToString.get(sapId);
         StringBuilder synset = new StringBuilder();
@@ -114,8 +98,7 @@ public class WordNet {
 
     // do unit testing of this class
     public static void main(String[] args) {
-        WordNet wordNet = new WordNet(args[0], args[1]);
-        wordNet.isNoun("entity");
-
+        WordNet wordNet = new WordNet("synsets.txt", "hypernyms.txt");
+        wordNet.distance("security_blanket", "thing");
     }
 }

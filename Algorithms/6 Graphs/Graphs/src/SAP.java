@@ -1,13 +1,9 @@
 
-
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Topological;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class SAP {
 
@@ -48,7 +44,7 @@ public class SAP {
 
     // length of shortest ancestral path between any vertex in v and any vertex in w; -1 if no such path
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
-        if ( v == null || w == null){
+        if (v == null || w == null) {
             throw new IllegalArgumentException();
         }
         BreadthFirstDirectedPaths vBfp = new BreadthFirstDirectedPaths(dg, v);
@@ -63,7 +59,7 @@ public class SAP {
 
     // a common ancestor that participates in shortest ancestral path; -1 if no such path
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
-        if ( v == null || w == null){
+        if (v == null || w == null) {
             throw new IllegalArgumentException();
         }
         BreadthFirstDirectedPaths vBfp = new BreadthFirstDirectedPaths(dg, v);
@@ -98,7 +94,7 @@ public class SAP {
             }
 
 
-            if (vBfp.hasPathTo(node) && wBfp.hasPathTo(node)){
+            if (vBfp.hasPathTo(node) && wBfp.hasPathTo(node)) {
                 int dist = vBfp.distTo(node) + wBfp.distTo(node);
                 if (dist < minLength) {
                     minLength = dist;
@@ -120,7 +116,7 @@ public class SAP {
 
         int minLength = dg.E() + 1; // max is E()
         int minAncestor = -1;
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int node = queue.dequeue();
 
             Iterator<Integer> nodeAdj = dg.adj(node).iterator();
@@ -133,7 +129,7 @@ public class SAP {
             }
 
 
-            if (vBfp.hasPathTo(node) && wBfp.hasPathTo(node)){
+            if (vBfp.hasPathTo(node) && wBfp.hasPathTo(node)) {
                 int dist = vBfp.distTo(node) + wBfp.distTo(node);
                 if (dist < minLength) {
                     minLength = dist;
@@ -147,23 +143,5 @@ public class SAP {
 
     // do unit testing of this class
     public static void main(String[] args) {
-        Digraph dg = new Digraph(7);
-        dg.addEdge(1, 0);
-        dg.addEdge(5, 0);
-        dg.addEdge(4, 5);
-        dg.addEdge(3, 4);
-        dg.addEdge(2, 3);
-        dg.addEdge(1, 2);
-        dg.addEdge(6, 1);
-
-        List<Integer> v = new ArrayList<>(2);
-        v.add(1);
-        v.add(6);
-        List<Integer> w = new ArrayList<>(2);
-        w.add(4);
-        w.add(5);
-
-        SAP sap = new SAP(dg);
-        int i = sap.ancestor(v, w);
     }
 }
