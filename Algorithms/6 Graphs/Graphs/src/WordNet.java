@@ -61,6 +61,17 @@ public class WordNet {
         if (!t.hasOrder()) {
             throw new IllegalArgumentException("Graph doesnt have order");
         }
+        int rootCount = 0;
+        Iterator<Integer> iterator = t.order().iterator();
+        while (iterator.hasNext()) {
+            int node = iterator.next();
+            if (dg.indegree(node) > 0 && dg.outdegree(node) == 0) {
+                rootCount++;
+            }
+        }
+        if (rootCount != 1) {
+            throw new IllegalArgumentException("DAG is not rooted");
+        }
     }
 
     // returns all WordNet nouns
