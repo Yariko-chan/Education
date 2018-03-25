@@ -81,7 +81,7 @@ public class SAP {
 
         int minLength = dg.E() + 1; // max is E()
         int minAncestor = -1;
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int node = queue.dequeue();
 
             Iterator<Integer> nodeAdj = dg.adj(node).iterator();
@@ -109,7 +109,7 @@ public class SAP {
     private int sap(Iterable<Integer> v, BreadthFirstDirectedPaths vBfp, BreadthFirstDirectedPaths wBfp) {
         Queue<Integer> queue = new Queue<>();
         boolean[] marked = new boolean[dg.V()];
-        for (Integer node : v) {
+        for (int node : v) {
             queue.enqueue(node);
             marked[node] = true;
         }
