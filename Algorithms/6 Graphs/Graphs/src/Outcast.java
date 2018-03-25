@@ -18,7 +18,7 @@ public class Outcast {
             throw new IllegalArgumentException();
         }
         String outcast = "";
-        int minSum = Integer.MAX_VALUE;
+        int maxSum = 0;
         for (String noun : nouns) {
             int distSum = 0;
             for (String s : nouns) {
@@ -26,8 +26,8 @@ public class Outcast {
                     distSum += wordnet.distance(noun, s);
                 }
             }
-            if (distSum < minSum) {
-                minSum = distSum;
+            if (distSum > maxSum) {
+                maxSum = distSum;
                 outcast = noun;
             }
         }
