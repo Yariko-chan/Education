@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class SeamCarver {
 
+    public static final int BORDER_ENERGY = 1000;
     private final Picture picture;
 
     // create a seam carver object based on the given picture
@@ -36,7 +37,7 @@ public class SeamCarver {
             throw new IllegalArgumentException("x or y is out of range");
         }
         if (x == 0 || y == 0 || x == width() - 1 || y == height() - 1) {
-            return 1000;
+            return BORDER_ENERGY; // border has energy 1000
         }
 
         Color xMin = picture().get(x - 1, y);
@@ -60,7 +61,48 @@ public class SeamCarver {
 
     // sequence of indices for vertical seam
     public   int[] findVerticalSeam() {
-        return null;
+        double[][] distTo = new double[height()][width()];
+        int[][] edgeTo = new int[height()][width()];
+
+        // first row has distance 1000 and no prev node
+        for (int i = 0; i < width(); i++) {
+            distTo[0][i] = BORDER_ENERGY;
+            edgeTo[0][i] = -1;
+        }
+
+        int minBottomPx = 0;
+        for (int j = 1; j < height(); j++) { // row
+            for (int i = 0; i < width(); i++) { // column
+
+                // find parent with min distance
+                // center parent
+                int minParentIndex = i;
+                // check left if distinct
+                int leftParent = i - 1;
+                if (leftParent >= 0 && distTo[j - 1][minParentIndex] > distTo[j - 1][leftParent]) {
+                    minParentIndex = leftParent;
+                }
+                // check right if distinct
+                int rightParent = i + 1;
+                if (rightParent < width() && distTo[j - 1][minParentIndex] > distTo[j - 1][rightParent]) {
+                    minParentIndex = rightParent;
+                }
+
+                distTo[j][i] = distTo[minParentIndex][j - 1] + energy(i, j);
+                edgeTo[j][i] = minParentIndex;
+
+                if (j == (height() - 1) && distTo[j][i] < distTo[j][minBottomPx]) {
+                    minBottomPx = i;
+                }
+            }
+        }
+
+        int[] result = new int[height()];
+        result[result.length - 1] = minBottomPx;
+        for (int i = result.length - 2; i >= 0; i--) {
+            result[i] = edgeTo[i][result[i + 1]];
+        }
+        return result;
     }
 
     // remove horizontal seam from current picture
@@ -101,5 +143,11 @@ public class SeamCarver {
 
         StdOut.printf("Displaying energy calculated for each pixel.\n");
         SCUtility.showEnergy(sc);
+
+        for (int row = 0; row < sc.height(); row++) {
+            for (int col = 0; col < sc.width(); col++)
+                StdOut.printf("%9.0f ", sc.energy(col, row));
+            StdOut.println();
+        }
     }
 }
