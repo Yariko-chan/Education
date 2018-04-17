@@ -1,12 +1,13 @@
 import edu.princeton.cs.algs4.Picture;
 import edu.princeton.cs.algs4.StdOut;
 
-import java.awt.*;
+import java.awt.Color;
+
 
 public class SeamCarver {
 
-    public static final int BORDER_ENERGY = 1000;
-    private final Picture picture;
+    private static final int BORDER_ENERGY = 1000;
+    private Picture picture;
 
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
@@ -18,7 +19,7 @@ public class SeamCarver {
 
     // current picture
     public Picture picture() {
-        return picture;
+        return new Picture(picture);
     }
 
     // width of current picture
@@ -32,7 +33,7 @@ public class SeamCarver {
     }
 
     // energy of pixel at column x and row y
-    public  double energy(int x, int y) throws IllegalArgumentException {
+    public  double energy(int x, int y) {
         if (x < 0 || y < 0 || x >= width() || y >= height()) {
             throw new IllegalArgumentException("x or y is out of range");
         }
@@ -40,23 +41,31 @@ public class SeamCarver {
             return BORDER_ENERGY; // border has energy 1000
         }
 
-        Color xMin = picture().get(x - 1, y);
-        Color xMax = picture().get(x + 1, y);
-        long dx = (long) (Math.pow(xMax.getRed() - xMin.getRed(), 2) +
-                        Math.pow(xMax.getGreen() - xMin.getGreen(), 2) +
-                        Math.pow(xMax.getBlue() - xMin.getBlue(), 2));
-        Color yMin = picture().get(x, y - 1);
-        Color yMax = picture().get(x, y + 1);
-        long dy = (long) (Math.pow(yMax.getRed() - yMin.getRed(), 2) +
-                Math.pow(yMax.getGreen() - yMin.getGreen(), 2) +
-                Math.pow(yMax.getBlue() - yMin.getBlue(), 2));
+        Color xLeft = picture.get(x - 1, y);
+        Color xRight = picture.get(x + 1, y);
+        int rx = xRight.getRed() - xLeft.getRed();
+        int gx = xRight.getGreen() - xLeft.getGreen();
+        int bx = xRight.getBlue() - xLeft.getBlue();
+        int dxSq = rx * rx + gx * gx + bx * bx;
 
-        return Math.sqrt(dx*dx + dy*dy);
+        Color yUp = picture.get(x, y - 1);
+        Color yDown = picture.get(x, y + 1);
+        int ry = yDown.getRed() - yUp.getRed();
+        int gy = yDown.getGreen() - yUp.getGreen();
+        int by = yDown.getBlue() - yUp.getBlue();
+        int dySq = ry * ry + gy * gy + by * by;
+
+        return Math.sqrt(dxSq + dySq);
     }
 
     // sequence of indices for horizontal seam
     public   int[] findHorizontalSeam() {
-        return null;
+        Picture original = picture;
+        Picture transposed = transposePicture(picture);
+        picture = transposed;
+        int[] result = findVerticalSeam();
+        picture = original;
+        return result;
     }
 
     // sequence of indices for vertical seam
@@ -79,7 +88,7 @@ public class SeamCarver {
                 int minParentIndex = i;
                 // check left if distinct
                 int leftParent = i - 1;
-                if (leftParent >= 0 && distTo[j - 1][minParentIndex] > distTo[j - 1][leftParent]) {
+                if (leftParent >= 0 && distTo[j - 1][minParentIndex] >= distTo[j - 1][leftParent]) {
                     minParentIndex = leftParent;
                 }
                 // check right if distinct
@@ -88,7 +97,7 @@ public class SeamCarver {
                     minParentIndex = rightParent;
                 }
 
-                distTo[j][i] = distTo[minParentIndex][j - 1] + energy(i, j);
+                distTo[j][i] = distTo[j - 1][minParentIndex] + energy(i, j);
                 edgeTo[j][i] = minParentIndex;
 
                 if (j == (height() - 1) && distTo[j][i] < distTo[j][minBottomPx]) {
@@ -100,7 +109,7 @@ public class SeamCarver {
         int[] result = new int[height()];
         result[result.length - 1] = minBottomPx;
         for (int i = result.length - 2; i >= 0; i--) {
-            result[i] = edgeTo[i][result[i + 1]];
+            result[i] = edgeTo[i + 1][result[i + 1]];
         }
         return result;
     }
@@ -113,10 +122,13 @@ public class SeamCarver {
         if (picture.height() <= 1) {
             throw new IllegalArgumentException("Height of the picture is less than or equal to 1");
         }
-        if (seam.length != height()) {
+        if (seam.length != width()) {
             throw new IllegalArgumentException("Wrong seam length");
         }
-        // todo also if two adjacent entries differ by more than 1
+        Picture transposed = transposePicture(picture);
+        picture = transposed;
+        removeVerticalSeam(seam);
+        picture = transposePicture(picture);
 
     }
 
@@ -131,8 +143,33 @@ public class SeamCarver {
         if (seam.length != height()) {
             throw new IllegalArgumentException("Wrong seam length");
         }
-        // todo also if two adjacent entries differ by more than 1
+        Picture newPicture = new Picture(width() - 1, height());
+        for (int i = 0; i < seam.length && i < picture.height(); i++) {
+            if (seam[i] < 0 || seam[i] >= width()) {
+                throw new IllegalArgumentException("Index out of bounds");
+            }
+            if (i > 0 && Math.abs(seam[i] - seam[i - 1]) > 1) {
+                throw new IllegalArgumentException(" two adjacent entries differ by more than 1");
+            }
+            for (int j = 0; j < picture.width() - 1; j++) {
+                if (j >= seam[i]) {
+                    newPicture.set(j, i, picture.get(j + 1, i));
+                } else {
+                    newPicture.set(j, i, picture.get(j, i));
+                }
+            }
+        }
+        picture = newPicture;
+    }
 
+    private Picture transposePicture(Picture srcPicture) {
+        Picture transposed = new Picture(srcPicture.height(), srcPicture.width());
+        for (int i = 0; i < height(); i++) {
+            for (int j = 0; j < width(); j++) {
+                transposed.set(i, j, srcPicture.get(j, i));
+            }
+        }
+        return transposed;
     }
 
     public static void main(String[] args) {
