@@ -1,0 +1,1 @@
+Analysis result: vowelsCount = 165 , spacesCount= 68 , lettersCount= 369
