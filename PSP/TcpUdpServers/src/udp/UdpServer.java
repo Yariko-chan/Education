@@ -34,14 +34,15 @@ public class UdpServer {
                 // initializations
                 byte[] buffer = new byte[512];
                 int length = 0;
+                // receive command
                 DatagramPacket receivedPacket = new DatagramPacket(buffer, buffer.length);
                 socket.receive(receivedPacket);
                 String cmd = new String(receivedPacket.getData()).trim();
                 System.out.printf("Received: %s \n", cmd);
-                if (cmd.equals(Utils.EXIT)) {
+                if (cmd.equals(Utils.EXIT)) { // exit command
                     isStop = true;
                     continue;
-                } else if (cmd.startsWith(Utils.SIGMA_COMMAND)) {
+                } else if (cmd.startsWith(Utils.SIGMA_COMMAND)) { // command to calculate sigma
 
                     // parse data
                     int dividerIndex = cmd.indexOf(",");
@@ -65,7 +66,7 @@ public class UdpServer {
                     String filename = Utils.SIGMA_COMMAND + " " +
                             new SimpleDateFormat("dd.MM.yyyy_hh-mm-ss-SS").format(new Date());
                     Utils.writeToFile(filename, data);
-                } else {
+                } else { // unknown command
                     length = Utils.UNKNOWN_CMD.length;
                     System.arraycopy(Utils.UNKNOWN_CMD, 0, buffer, 0, length);
                 }

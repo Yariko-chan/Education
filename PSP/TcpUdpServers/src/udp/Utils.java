@@ -16,6 +16,12 @@ public class Utils {
     public static final String EXIT = "QUIT";
     public static final byte[] UNKNOWN_CMD = {'U', 'n', 'k', 'n', 'o', 'w', 'n', ' ', 'c', 'o', 'm', 'm', 'a', 'n', 'd'};
 
+    /**
+     * Writes string to file
+     * @param filename
+     * @param data
+     * @throws IOException
+     */
     public static void writeToFile(String filename, String data) throws IOException {
         File src = new File(filename);
         src.createNewFile();
@@ -35,6 +41,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Calculating sigma by formula
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
     public static float getSigma(float x, float y, float z) {
         float result = 0;
         result += Math.pow(y, x);

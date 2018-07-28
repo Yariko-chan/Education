@@ -25,6 +25,7 @@ public class Server
 {
     public static void main(String[] arg)
     {
+        // launch
         ServerSocket serverSocket = null;
         Socket clientAccepted = null;
         ObjectInputStream clientInputStream = null;
@@ -33,11 +34,12 @@ public class Server
             System.out.println("Server started....");
             serverSocket = new ServerSocket(Utils.SERVER_PORT);
             clientAccepted = serverSocket.accept();
+            // establishing connection
             System.out.println("Connection established....");
-
             clientInputStream = new ObjectInputStream(clientAccepted.getInputStream());
             clientOutputStream = new ObjectOutputStream(clientAccepted.getOutputStream());
 
+            // handling client messages
             String msg = (String) clientInputStream.readObject();
             while (!msg.equals(Utils.EXIT))
             {
@@ -68,6 +70,11 @@ public class Server
         }
     }
 
+    /**
+     * Reads double matrix from string, return determinant
+     * @param msg
+     * @return
+     */
     private static String handleMessage(String msg) {
         double determinant;
         double x[][] = Utils.stringToArray(msg);

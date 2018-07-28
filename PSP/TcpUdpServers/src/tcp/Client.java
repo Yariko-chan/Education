@@ -25,12 +25,13 @@ import java.net.Socket;
 public class Client {
 
     public static void main(String[] arg) {
+        // launch
         ObjectOutputStream outputStream = null;
         ObjectInputStream inputStream = null;
         Socket clientSocket = null;
         try {
+            // opening socket
             System.out.println("Server connecting....");
-
             clientSocket = new Socket(Utils.SERVER_IP, Utils.SERVER_PORT);
             System.out.println("connection established....");
 
@@ -38,6 +39,7 @@ public class Client {
             outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             inputStream = new ObjectInputStream(clientSocket.getInputStream());
 
+            // read matrix from input and send to server
             String matrix = readMatrix(stdin);
             System.out.println("You've entered: " + matrix);
             while (!matrix.equals(Utils.EXIT)) {
@@ -45,6 +47,7 @@ public class Client {
                 System.out.println("~server~: " + inputStream.readObject());
                 System.out.println("---------------------------");
 
+                // receiving result
                 matrix = readMatrix(stdin);
                 System.out.println("You've entered: " + matrix);
             }
@@ -67,6 +70,12 @@ public class Client {
         }
     }
 
+    /**
+     * reading matrix from input
+     * @param stdin
+     * @return
+     * @throws IOException
+     */
     private static String readMatrix(BufferedReader stdin) throws IOException {
         System.out.printf("For exit program print \'%s\' \n\n", Utils.EXIT);
 

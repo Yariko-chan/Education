@@ -21,6 +21,9 @@ import java.io.IOException;
  */
 public class StringAnalyser {
 
+    /**
+     * data structure for holding results of string analysis
+     */
     private class AnalysisResult {
         private int vowelsCount;
         private int spacesCount;
@@ -53,6 +56,11 @@ public class StringAnalyser {
         }
     }
 
+    /**
+     * Analyzes string for count of vowels, spaces, letters
+     * @param s string to analyze
+     * @return AnalysisResult contains count of vowels, spaces, letters
+     */
     public AnalysisResult analyze(String s) {
         int vowelsCount = 0;
         int spacesCount = 0;
@@ -76,6 +84,13 @@ public class StringAnalyser {
         return new AnalysisResult(vowelsCount, spacesCount, lettersCount);
     }
 
+    /**
+     * read data from file to String
+     * @param filename - filename to read
+     * @return
+     * @throws FileNotFoundException if file doesnt exist
+     * @throws IOException other file reading exceptions
+     */
     public String getFileData(String filename) throws FileNotFoundException, IOException {
         File src = new File(filename);
         if (!src.exists()) {
@@ -106,6 +121,12 @@ public class StringAnalyser {
         return builder.toString();
     }
 
+    /**
+     * Write data to file
+     * @param filename - name of file to write, might be created if need
+     * @param data - Data for writing to file
+     * @throws IOException
+     */
     public void writeToFile(String filename, String data) throws IOException {
         File src = new File(filename);
         src.createNewFile();

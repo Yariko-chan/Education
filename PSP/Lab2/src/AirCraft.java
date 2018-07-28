@@ -2,6 +2,8 @@ import java.applet.Applet;
 import java.awt.*;
 
 /**
+ * Составить программу вывода на экран дисплея изображения летящего самолета.
+ *
  * Created by Ganeeva Diana in Май, 2018
  * for Lab2
  */
@@ -16,7 +18,7 @@ public class AirCraft extends Applet implements Runnable {
     private Cloud bottomCloud;
     private Plane plane;
 
-    public void run () { // реализация метода run, точка входа в поток
+    public void run () {
         while(true) {
             try {
                 repaint();
@@ -27,7 +29,11 @@ public class AirCraft extends Applet implements Runnable {
         }
     }
 
-    public void init() {// метод инициализации апплета
+    /**
+     * applet initialization
+     */
+    public void init() {
+        // threads for two  clouds and plane
         topCloud = new Cloud(getWidth(), TOP_CLOUD_WIDTH, 2);
         bottomCloud = new Cloud(getWidth(), BOTTOM_CLOUD_WIDTH, 10);
         plane = new Plane(140, 180);
@@ -36,7 +42,11 @@ public class AirCraft extends Applet implements Runnable {
         t.start();
     }
 
-    public void paint(Graphics g) { // метод прорисовки апплета
+    /**
+     * applet repainting
+     * @param g
+     */
+    public void paint(Graphics g) {
 
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHints(new RenderingHints(
@@ -46,7 +56,7 @@ public class AirCraft extends Applet implements Runnable {
                 RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY));
 
-        // draw background - sky + sun
+        // draw static background - sky + sun
         setBackground(Color.CYAN);
         g2.setColor(Color.ORANGE);
         int sunRadius = 50;
@@ -64,6 +74,12 @@ public class AirCraft extends Applet implements Runnable {
         drawCloud(rect, g2);
     }
 
+    /**
+     * draw blue filled plane shape
+     * @param left coordinates
+     * @param bottom coordinates
+     * @param g
+     */
     private void drawPlane(int left, int bottom, Graphics g) {
         g.setColor(Color.BLUE);
         Polygon body = new Polygon();
@@ -96,6 +112,11 @@ public class AirCraft extends Applet implements Runnable {
         g.fillPolygon(tale);
     }
 
+    /**
+     * draw cloud in a given rectangle
+     * @param rect
+     * @param g
+     */
     private void drawCloud(Rectangle rect, Graphics g) {
         g.setColor(Color.WHITE);
         g.fillOval(rect.x, rect.y + rect.height/2, rect.width, rect.height / 2);
@@ -103,6 +124,10 @@ public class AirCraft extends Applet implements Runnable {
         g.fillOval(rect.x + rect.width * 5/8, rect.y + rect.height * 3/8, rect.width * 3/8, rect.height * 3/8);
     }
 
+    /**
+     * thread for changing coordinates of cloud
+     * moves shape from left to right of screen with given speed
+     */
     private class Cloud implements Runnable {
         private Thread thread;
         private int left = 0;
@@ -138,6 +163,10 @@ public class AirCraft extends Applet implements Runnable {
         }
     }
 
+    /**
+     * thread for changing coordinates of plane
+     * moves shape in center of screen on y axis
+     */
     private class Plane implements Runnable {
         private final int topValue;
         private final int bottomValue;

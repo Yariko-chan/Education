@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><tickets>
+  <ticket arrivalTime="1529336820000" departureTime="1529330700000" from="Minsk" passengerName="Barzelay" routeNum="1599" sellTime="1527867120000" to="SaintPetersburg"/>
+  <ticket arrivalTime="1529336220000" departureTime="1529334300000" from="SaintPetersburg" passengerName="Lindauer" routeNum="1956" sellTime="1525152780000" to="Moscow"/>
+  <ticket arrivalTime="1529338020000" departureTime="1529337900000" from="Moscow" passengerName="Eberhart" routeNum="1921" sellTime="1527671580000" to="Kazan"/>
+  <ticket arrivalTime="1529341800000" departureTime="1529341620000" from="Kazan" passengerName="Platt" routeNum="2080" sellTime="1528012800000" to="Moscow"/>
+  <ticket arrivalTime="1529345400000" departureTime="1529341740000" from="Moscow" passengerName="Cicinelli" routeNum="1352" sellTime="1527761520000" to="Minsk"/>
+<ticket arrivalTime="1529336820000" departureTime="1529330700000" from="Minsk" passengerName="Barzelay" routeNum="1599" sellTime="1527867120000" to="SaintPetersburg"/><ticket arrivalTime="1526203200000" departureTime="1528972800000" from="Arstozka" passengerName="Jonny" routeNum="1224" sellTime="1531605600000" to="Msk"/><ticket arrivalTime="1528249320901" departureTime="1528249335677" from="Gomel" passengerName="Egrishchina" routeNum="3349" sellTime="1528249371228" to="Minsk"/></tickets>

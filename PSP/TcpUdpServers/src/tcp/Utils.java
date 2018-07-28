@@ -18,6 +18,18 @@ public class Utils {
     // 3 3 10.0 15.0 7.0 20.0 57.0 30.0 37.0 56.0 85.0
 
 
+    /**
+     * Creates String from double matrix
+     * supported format:
+     * 10.0, 15.0, 7.0;
+     * 20.0, 57.0, 30.0;
+     * 37.0, 56.0, 85.0;
+     *         |
+     *         v
+     * 3 3 10.0 15.0 7.0 20.0 57.0 30.0 37.0 56.0 85.0
+     * @param array
+     * @return
+     */
     public static String arrayToString(double[][] array) {
         StringBuilder b = new StringBuilder();
         b.append(array.length)
@@ -33,6 +45,18 @@ public class Utils {
         return b.toString();
     }
 
+    /**
+     * Creates double matrix from String
+     * supported format:
+     * 10.0, 15.0, 7.0;
+     * 20.0, 57.0, 30.0;
+     * 37.0, 56.0, 85.0;
+     *         |
+     *         v
+     * 3 3 10.0 15.0 7.0 20.0 57.0 30.0 37.0 56.0 85.0
+     * @param src
+     * @return
+     */
     public static double[][] stringToArray(String src) {
         double[][] result = new double[0][0];
         if (src == null || src.isEmpty()) {
@@ -63,6 +87,10 @@ public class Utils {
         return result;
     }
 
+    /**
+     * testing client
+     * @param args
+     */
     public static void main(String[] args) {
         double x[][] = {
                 {10, 15, 7,},
@@ -73,7 +101,6 @@ public class Utils {
         System.out.println(test);
         double[][] test2 = Utils.stringToArray(test);
         System.out.println(Utils.arrayToString(test2));
-
     }
 
     /**

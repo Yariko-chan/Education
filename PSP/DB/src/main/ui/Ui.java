@@ -90,6 +90,7 @@ public class Ui {
         }
     };
 
+    // remove selected indices
     private ActionListener removeListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -106,6 +107,7 @@ public class Ui {
         }
     };
 
+    // add new Flower data
     private ActionListener addListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -145,6 +147,7 @@ public class Ui {
         }
     };
 
+    // find flower by entered name
     private ActionListener findListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -163,6 +166,7 @@ public class Ui {
         }
     };
 
+    // clears find field, shows all flowers in table
     private ActionListener clearListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -171,6 +175,7 @@ public class Ui {
         }
     };
 
+    // saves visible now strings to file
     private ActionListener saveToFileListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
