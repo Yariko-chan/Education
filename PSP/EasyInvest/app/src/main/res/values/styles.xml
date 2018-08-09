@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/colorWhiteText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+        <item name="android:textColorPrimaryInverse">@color/colorWhiteText</item>
+
+        <!--<item name="android:textAppearanceMedium">@style/DefaultText</item>-->
+        <!--<item name="android:editTextStyle">@style/DefaultText</item>-->
+    </style>
+
+    <style name="DefaultText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/textDefault</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">EasyInvest</string>
+    <string name="name">Name...</string>
+    <string name="description">Description...</string>
+    <string name="project_length">Length of the project (in years)</string>
+    <string name="r_description">Discount rate R (minimal profit, in percents)</string>
+    <string name="enter_money_flow">Enter money flow values for each year:</string>
+    <string name="year_num">Year %d</string>
+    <string name="years">years</string>
+    <string name="percent" translatable="false">%</string>
+</resources>
