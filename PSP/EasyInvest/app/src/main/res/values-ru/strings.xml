@@ -10,8 +10,15 @@
     <string name="enter_money_flow">Введите значение денежного потока по годам:</string>
     <string name="year_num">Год %d</string>
     <string name="years">лет</string>
+    <string name="error_project_no_name">Укажите название проекта</string>
+    <string name="error_project_no_description">Опишите проект</string>
+    <string name="error_project_no_r">Укажите ставку дисконтирования</string>
+    <string name="error_project_no_duration">Укажите продолжительность проекта</string>
+    <string name="error_project_no_year_value">Укажите значение для этого года</string>
 
     <!--Edit actionbar-->
     <string name="save">Сохранить</string>
+    <string name="error_positive_number">Неверный формат, число должно быть положительное</string>
+    <string name="error_positive_integer">Неверный формат, число должно быть положительное целое</string>
 
 </resources>

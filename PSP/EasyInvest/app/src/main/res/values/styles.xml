@@ -11,6 +11,7 @@
 
         <item name="android:textAppearanceMedium">@style/DefaultText</item>
         <item name="android:editTextStyle">@style/DefaultText</item>
+        <item name="android:textViewStyle">@style/DefaultText</item>
     </style>
 
     <style name="DefaultText" parent="@android:style/TextAppearance.Medium">

@@ -20,15 +20,20 @@ import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends NavMenuActivity implements View.OnClickListener {
 
-    private EditText addEditText;
     private ProjectsViewModel viewModel;
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         RecyclerView rv = findViewById(R.id.list);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
