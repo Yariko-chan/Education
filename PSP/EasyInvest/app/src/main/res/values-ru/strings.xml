@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--AddProjectActivity-->
+    <string name="add_project_title">Новый проект</string>
     <string name="name">Название…</string>
     <string name="description">Описание…</string>
     <string name="project_length">Продолжительность проекта</string>
@@ -7,5 +10,8 @@
     <string name="enter_money_flow">Введите значение денежного потока по годам:</string>
     <string name="year_num">Год %d</string>
     <string name="years">лет</string>
+
+    <!--Edit actionbar-->
+    <string name="save">Сохранить</string>
 
 </resources>

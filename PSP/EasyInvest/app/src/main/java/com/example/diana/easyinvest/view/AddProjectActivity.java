@@ -13,9 +13,14 @@ import android.widget.TextView;
 
 import com.example.diana.easyinvest.R;
 
-public class AddProjectActivity extends BaseActivity implements View.OnKeyListener {
+public class AddProjectActivity extends EditActivity implements View.OnKeyListener {
 
     private EditText yearsEt;
+
+    @Override
+    protected int getScreenTitle() {
+        return R.string.add_project_title;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,6 @@ public class AddProjectActivity extends BaseActivity implements View.OnKeyListen
 
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, AddProjectActivity.class);
-//        intent.setFlags()
         context.startActivity(intent);
     }
 
@@ -55,5 +59,15 @@ public class AddProjectActivity extends BaseActivity implements View.OnKeyListen
             }
         }
         return false;
+    }
+
+    @Override
+    protected boolean checkCorrectness() {
+        return true;
+    }
+
+    @Override
+    protected void save() {
+
     }
 }

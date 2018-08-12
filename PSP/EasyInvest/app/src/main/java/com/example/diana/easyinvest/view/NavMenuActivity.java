@@ -22,6 +22,8 @@ public abstract class NavMenuActivity extends BaseActivity implements Navigation
         navigationView.setNavigationItemSelectedListener(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        int white = getResources().getColor(R.color.colorWhiteText);
+        toolbar.setTitleTextColor(white);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -31,12 +33,8 @@ public abstract class NavMenuActivity extends BaseActivity implements Navigation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
-        // close drawer when item is tapped
         mDrawerLayout.closeDrawers();
-
-        // Add code here to update the UI based on the item selected
-        // For example, swap UI fragments here
-
+        // todo switch between activities
         return true;
     }
 

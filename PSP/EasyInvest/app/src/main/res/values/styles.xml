@@ -9,8 +9,8 @@
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:textColorPrimaryInverse">@color/colorWhiteText</item>
 
-        <!--<item name="android:textAppearanceMedium">@style/DefaultText</item>-->
-        <!--<item name="android:editTextStyle">@style/DefaultText</item>-->
+        <item name="android:textAppearanceMedium">@style/DefaultText</item>
+        <item name="android:editTextStyle">@style/DefaultText</item>
     </style>
 
     <style name="DefaultText" parent="@android:style/TextAppearance.Medium">
@@ -19,6 +19,14 @@
         <item name="android:typeface">normal</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="Actionbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="titleTextColor">@color/colorWhiteText</item>
     </style>
 
 </resources>

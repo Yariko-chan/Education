@@ -1,111 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AddProjectActivity"
-    android:padding="20dp">
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/name_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:inputType="textPersonName"
-        android:hint="@string/name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Actionbar"/>
 
-    <EditText
-        android:id="@+id/description_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:inputType="textMultiLine"
-        android:hint="@string/description"
-        android:lines="5"
-        app:layout_constraintTop_toBottomOf="@id/name_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/r_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/r_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_et" />
-
-    <EditText
-        android:id="@+id/r_et"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:inputType="numberDecimal"
-        android:textAlignment="viewStart"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        android:typeface="normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_tv" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:labelFor="@id/r_et"
-        android:text="@string/percent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/r_et"
-        app:layout_constraintStart_toEndOf="@+id/r_et" />
-
-    <TextView
-        android:id="@+id/years_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="@string/project_length"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/r_et" />
-
-    <EditText
-        android:id="@+id/years_et"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/years_tv" />
-
-    <TextView
-        android:labelFor="@id/years_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/years"
-        app:layout_constraintStart_toEndOf="@+id/years_et"
-        app:layout_constraintBaseline_toBaselineOf="@+id/years_et"/>
-
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/years_et" >
+        android:layout_height="match_parent"
+        tools:context=".view.AddProjectActivity"
+        android:padding="20dp">
 
-        <ScrollView
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textPersonName"
+            android:hint="@string/name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/description_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:hint="@string/description"
+            android:lines="5"
+            app:layout_constraintTop_toBottomOf="@id/name_et"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/r_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/r_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_et" />
+
+        <EditText
+            android:id="@+id/r_et"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:inputType="numberDecimal"
+            android:textAlignment="viewStart"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:typeface="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/r_tv" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:labelFor="@id/r_et"
+            android:text="@string/percent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/r_et"
+            app:layout_constraintStart_toEndOf="@+id/r_et" />
+
+        <TextView
+            android:id="@+id/years_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/project_length"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/r_et" />
+
+        <EditText
+            android:id="@+id/years_et"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/years_tv" />
+
+        <TextView
+            android:labelFor="@id/years_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/years"
+            app:layout_constraintStart_toEndOf="@+id/years_et"
+            app:layout_constraintBaseline_toBaselineOf="@+id/years_et"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/years_et" >
 
-            <LinearLayout
-                android:id="@+id/container"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-    </LinearLayout>
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
