@@ -20,5 +20,6 @@
     <string name="save">Сохранить</string>
     <string name="error_positive_number">Неверный формат, число должно быть положительное</string>
     <string name="error_positive_integer">Неверный формат, число должно быть положительное целое</string>
+    <string name="error_wrong_format">Неверный формат</string>
 
 </resources>

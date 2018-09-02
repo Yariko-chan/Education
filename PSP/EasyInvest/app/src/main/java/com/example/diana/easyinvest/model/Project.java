@@ -1,6 +1,8 @@
 package com.example.diana.easyinvest.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
@@ -9,36 +11,37 @@ import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-@Entity(tableName = "projects", indices = {@Index("id")})
+@Entity(tableName = "projects",
+        indices = {@Index("company_id")},
+        foreignKeys = @ForeignKey(
+                entity = Company.class,
+                parentColumns = "id",
+                childColumns = "company_id"))
 public class Project {
 
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
 
     @NonNull
-    String name;
+    public String name;
 
-    String description;
+    public String description;
 
-    float r;
+    public float r;
 
-    int duration;
+    public int duration;
 
-    String flows; // float array, serialized to json array
+    public String flows; // float array, serialized to json array
 
     @Ignore
-    float[] rawMoneyFlows;
+    double[] rawMoneyFlows;
 
-    private Project() {
-    }
+    @ColumnInfo(name = "company_id")
+    public int companyId;
 
-    public Project(@NonNull String name, String description, float r, int duration) {
-        this.name = name;
-        this.description = description;
-        this.r = r;
-        this.duration = duration;
-    }
+    Project() {}
 
     @NonNull
     public String getName() {
@@ -57,14 +60,26 @@ public class Project {
         return duration;
     }
 
-    public float[] getFlows() {
+    public double[] getFlows() {
         if (rawMoneyFlows == null && !TextUtils.isEmpty(flows)) {
-            // deserialize
-        }
-        if (rawMoneyFlows == null) {
-            rawMoneyFlows = new float[duration];
+            try {
+                JSONArray array = new JSONArray(flows);
+                rawMoneyFlows = new double[array.length()];
+                for (int i = 0; i < array.length(); i++) {
+                    rawMoneyFlows[i] = (float) array.getDouble(i);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                rawMoneyFlows = new double[duration];
+            }
+        } else if (rawMoneyFlows == null) {
+            rawMoneyFlows = new double[duration];
         }
         return rawMoneyFlows;
+    }
+
+    public int getCompanyId() {
+        return companyId;
     }
 
     public static class Builder {
@@ -73,26 +88,36 @@ public class Project {
         private String description;
         private float r;
         private int duration;
-        @NonNull private float[] rawMoneyFlows;
+        @NonNull private double[] rawMoneyFlows;
+        int companyId = -1;
 
         public Builder() {
         }
 
-        public void setName(@NonNull String name) {
+        public Builder setName(@NonNull String name) {
             this.name = name;
+            return this;
         }
 
-        public void setDescription(String description) {
+        public Builder setDescription(String description) {
             this.description = description;
+            return this;
         }
 
-        public void setR(@NonNull float r) {
+        public Builder setR(@NonNull float r) {
             this.r = r;
+            return this;
         }
 
-        public void setMoneyFlows(float[] flows) {
+        public Builder setMoneyFlows(double[] flows) {
             this.rawMoneyFlows = flows;
             duration = flows.length - 1; // additional for 0 year
+            return this;
+        }
+
+        public Builder setCompanyId(@NonNull int companyId) {
+            this.companyId = companyId;
+            return this;
         }
 
         public Project build() {
@@ -102,28 +127,31 @@ public class Project {
                 throw new IllegalArgumentException("R should be > 0");
             } else if (duration <= 0) {
                 throw new IllegalArgumentException("Duration must be at least 1 year");
+            } else if (rawMoneyFlows.length < 1) {
+                throw new IllegalArgumentException("Wrong money flows");
+            } else if (companyId < 1) {
+                throw new IllegalArgumentException("Wrong company id");
+            }
+
+            String flows = "";
+            try {
+                JSONArray array = new JSONArray();
+                for (double f : rawMoneyFlows) {
+                    array.put(f);
+                }
+                flows = array.toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             Project p = new Project();
             p.name = name;
             p.description = description;
             p.r = r;
             p.duration = duration;
-
+            p.flows = flows;
+            p.companyId = companyId;
             p.rawMoneyFlows = rawMoneyFlows;
-            p.flows = "";
-            try {
-                JSONArray array = new JSONArray();
-                for (float f : rawMoneyFlows) {
-                    array.put(f);
-                }
-                p.flows = array.toString();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            // todo calculate formulas
-
-            return null;
+            return p;
         }
     }
 }

@@ -23,4 +23,5 @@
     <!--Common errors-->
     <string name="error_positive_number">Number should be positive</string>
     <string name="error_positive_integer">Number should be positive integer</string>
+    <string name="error_wrong_format">Wrong format</string>
 </resources>

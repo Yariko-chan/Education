@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Calculations {
 
+    public static final double DEFAULT_IRR_PRECISION = 0.01;
+
     private Calculations() {
     }
 

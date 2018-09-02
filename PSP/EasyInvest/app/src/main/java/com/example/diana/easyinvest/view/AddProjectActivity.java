@@ -1,5 +1,6 @@
 package com.example.diana.easyinvest.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +12,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.diana.easyinvest.App;
 import com.example.diana.easyinvest.R;
 import com.example.diana.easyinvest.model.InvestmentsRepository;
 import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ public class AddProjectActivity extends EditActivity {
     @BindView(R.id.r_et)           EditText rEt;
     @BindView(R.id.duration_et)    EditText durationEt;
 
+    private ProjectsViewModel projectsViewModel;
+
     private List<EditText> yearsEts;
 
     @Override
@@ -39,6 +42,8 @@ public class AddProjectActivity extends EditActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         durationEt.setOnKeyListener(this::onKey);
+
+        projectsViewModel = ViewModelProviders.of(this).get(ProjectsViewModel.class);
     }
 
     public static void startActivity(Context context) {
@@ -140,7 +145,24 @@ public class AddProjectActivity extends EditActivity {
             durationEt.setError(getString(R.string.error_positive_integer));
             return;
         }
-        Project newProject = new Project(name, description, r, duration);
+        double[] flows = new double[yearsEts.size()];
+        for (int i = 0; i < yearsEts.size(); i++) {
+            try {
+                flows[i] = Double.valueOf(yearsEts.get(i).getText().toString());
+            } catch (NumberFormatException e) {
+                yearsEts.get(i).setError(getString(R.string.error_wrong_format));
+                return;
+            }
+        }
+        Project newProject = new Project.Builder()
+                .setName(name)
+                .setDescription(description)
+                .setR(r)
+                .setMoneyFlows(flows)
+                .build();
+
+        projectsViewModel.insert(newProject);
+
         InvestmentsRepository repository = new InvestmentsRepository(getApplication());
         repository.insert(newProject);
     }

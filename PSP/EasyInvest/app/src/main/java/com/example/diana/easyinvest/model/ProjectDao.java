@@ -16,6 +16,6 @@ public interface ProjectDao {
     @Query("SELECT * FROM projects")
     LiveData<List<Project>> getAllProjects();
 
-    @Query("DELETE FROM projects")
-    void deleteAll();
+    @Query("SELECT * FROM projects WHERE company_id = :companyId")
+    LiveData<List<Project>> getCompanyProjects(int companyId);
 }

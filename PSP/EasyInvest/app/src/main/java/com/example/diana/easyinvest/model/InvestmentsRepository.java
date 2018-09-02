@@ -4,40 +4,43 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import com.example.diana.easyinvest.model.tasks.InsertProjectAsyncTask;
+
 import java.util.List;
 
 public class InvestmentsRepository {
 
     private final InvestmentsRoomDatabase db;
+
     private final ProjectDao projectsDao;
+    private final AnalysisDao analysisDao;
+    private final GroupDao groupDao;
+    private final CompaniesDao companiesDao;
+
     private LiveData<List<Project>> projects;
 
     public InvestmentsRepository(Application app) {
         db = InvestmentsRoomDatabase.getDatabase(app);
         projectsDao = db.projectDao();
-        projects = projectsDao.getAllProjects();
+        analysisDao = db.analysisDao();
+        companiesDao = db.companiesDao();
+        groupDao = db.groupDao();
+    }
+
+    /* Projects */
+
+    public void insert(Project project) {
+        new InsertProjectAsyncTask(projectsDao).execute(project);
     }
 
     public LiveData<List<Project>> getAllProjects() {
+        if (projects == null) {
+            projects = projectsDao.getAllProjects();
+        }
         return projects;
     }
 
-    public void insert(Project project) {
-        new insertAsyncTask(projectsDao).execute(project);
-    }
-
-    private static class insertAsyncTask extends AsyncTask<Project, Void, Void> {
-
-        private ProjectDao mAsyncTaskDao;
-
-        insertAsyncTask(ProjectDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Project... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+    public LiveData<List<Project>> getCompanyProjects(int id) {
+        return projects;
     }
 }
