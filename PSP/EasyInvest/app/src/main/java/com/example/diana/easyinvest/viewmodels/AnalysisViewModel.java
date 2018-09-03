@@ -18,6 +18,6 @@ public class AnalysisViewModel extends AndroidViewModel {
     public AnalysisViewModel(@NonNull Application application) {
         super(application);
         repository = new InvestmentsRepository(application);
-//        projects = repository.getAllProjects();
+//        projects = repository.getAll();
     }
 }

@@ -14,5 +14,5 @@ public interface GroupDao {
     public void insert(Group group);
 
     @Query("SELECT * FROM groups")
-    LiveData<List<Group>> getAllGroups();
+    LiveData<List<Group>> getAll();
 }

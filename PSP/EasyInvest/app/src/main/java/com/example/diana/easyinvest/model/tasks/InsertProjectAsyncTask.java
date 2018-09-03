@@ -1,22 +1,21 @@
 package com.example.diana.easyinvest.model.tasks;
 
-import android.arch.persistence.room.Dao;
-import android.os.AsyncTask;
-
 import com.example.diana.easyinvest.model.Project;
 import com.example.diana.easyinvest.model.ProjectDao;
 
-public class InsertProjectAsyncTask extends AsyncTask<Project, Void, Void> {
+public class InsertProjectAsyncTask extends DbAsyncTask {
 
     private ProjectDao mAsyncTaskDao;
+    private Project p;
 
-    public InsertProjectAsyncTask(ProjectDao dao) {
+    public InsertProjectAsyncTask(ProjectDao dao, Project p) {
         mAsyncTaskDao = dao;
+        this.p = p;
     }
 
     @Override
-    protected Void doInBackground(final Project... params) {
-        mAsyncTaskDao.insert(params[0]);
+    protected Void doAsync() {
+        mAsyncTaskDao.insert(p);
         return null;
     }
 }

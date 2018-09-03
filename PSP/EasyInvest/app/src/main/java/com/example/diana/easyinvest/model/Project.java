@@ -129,8 +129,8 @@ public class Project {
                 throw new IllegalArgumentException("Duration must be at least 1 year");
             } else if (rawMoneyFlows.length < 1) {
                 throw new IllegalArgumentException("Wrong money flows");
-            } else if (companyId < 1) {
-                throw new IllegalArgumentException("Wrong company id");
+//            } else if (companyId < 1) {
+//                throw new IllegalArgumentException("Wrong company id");
             }
 
             String flows = "";

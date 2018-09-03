@@ -14,7 +14,7 @@ public interface CompaniesDao {
     void insert(Company company);
 
     @Query("SELECT * FROM companies")
-    LiveData<List<Company>> getAllCompanies();
+    LiveData<List<Company>> getAll();
 
     @Query("SELECT * FROM companies WHERE group_id = :groupId")
     LiveData<List<Company>> getGroupCompanies(int groupId);
