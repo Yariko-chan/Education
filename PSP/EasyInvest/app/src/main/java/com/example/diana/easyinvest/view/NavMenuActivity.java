@@ -34,7 +34,16 @@ public abstract class NavMenuActivity extends BaseActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
         mDrawerLayout.closeDrawers();
-        // todo switch between activities
+        switch ((item.getItemId())) {
+            case R.id.projects:
+                ProjectsActivity.startActivity(this);
+                break;
+            case R.id.companies:
+                break;
+            case R.id.groups:
+                GroupsActivity.startActivity(this);
+                break;
+        }
         return true;
     }
 

@@ -1,28 +1,24 @@
 package com.example.diana.easyinvest.view;
 
+import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.diana.easyinvest.R;
 import com.example.diana.easyinvest.model.Project;
 import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
-public class MainActivity extends NavMenuActivity implements View.OnClickListener {
+public class ProjectsActivity extends NavMenuActivity implements View.OnClickListener {
 
     private ProjectsViewModel viewModel;
 
@@ -53,18 +49,23 @@ public class MainActivity extends NavMenuActivity implements View.OnClickListene
             });
         }
 
-        FloatingActionButton addButton = findViewById(R.id.add_button);
+        FloatingActionButton addButton = findViewById(R.id.add_btn);
         addButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.add_button :
-                AddProjectActivity.startActivity(MainActivity.this);
+            case R.id.add_btn:
+                AddProjectActivity.startActivity(ProjectsActivity.this);
                 break;
             default:
                 break;
         }
+    }
+
+    public static void startActivity(Activity activity) {
+        Intent i = new Intent(activity, ProjectsActivity.class);
+        activity.startActivity(i);
     }
 }

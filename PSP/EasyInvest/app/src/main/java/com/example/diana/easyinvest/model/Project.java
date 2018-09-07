@@ -15,10 +15,17 @@ import org.json.JSONObject;
 
 @Entity(tableName = "projects",
         indices = {@Index("company_id")},
-        foreignKeys = @ForeignKey(
+        foreignKeys = {
+        @ForeignKey(
                 entity = Company.class,
                 parentColumns = "id",
-                childColumns = "company_id"))
+                childColumns = "company_id"),
+        @ForeignKey(
+                entity = Analysis.class,
+                parentColumns = "id",
+                childColumns = "analysis_id")
+        }
+)
 public class Project {
 
     @PrimaryKey(autoGenerate = true)
@@ -40,6 +47,9 @@ public class Project {
 
     @ColumnInfo(name = "company_id")
     public int companyId;
+
+    @ColumnInfo(name = "analysis_id")
+    public int analysisId;
 
     Project() {}
 

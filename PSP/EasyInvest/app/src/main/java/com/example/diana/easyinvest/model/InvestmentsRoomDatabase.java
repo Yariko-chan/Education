@@ -52,19 +52,20 @@ public abstract class InvestmentsRoomDatabase extends RoomDatabase {
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final ProjectDao mDao;
+        private final ProjectDao projectDao;
+        private final CompaniesDao companiesDao;
+        private final GroupDao groupDao;
+        private final AnalysisDao analysisDao;
 
         PopulateDbAsync(InvestmentsRoomDatabase db) {
-            mDao = db.projectDao();
+            projectDao = db.projectDao();
+            companiesDao = db.companiesDao();
+            groupDao = db.groupDao();
+            analysisDao = db.analysisDao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
-//            mDao.deleteAll(); // why crashes without this?
-//            Project project = new Project("Hello", "", 0f, 1);
-//            mDao.insert(project);
-//            project = new Project("World", "", 0f, 1);
-//            mDao.insert(project);
             return null;
         }
     }

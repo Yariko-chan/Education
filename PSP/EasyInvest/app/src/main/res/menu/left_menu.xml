@@ -2,20 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/projects"
             android:icon="@drawable/ic_launcher_background"
-            android:title="import" />
+            android:title="@string/project" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/companies"
             android:icon="@drawable/ic_launcher_background"
-            android:title="gallery" />
+            android:title="@string/companies" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/groups"
             android:icon="@drawable/ic_launcher_background"
-            android:title="slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="tools" />
+            android:title="@string/groups" />
     </group>
 </menu>
