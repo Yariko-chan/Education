@@ -39,6 +39,7 @@ public abstract class NavMenuActivity extends BaseActivity implements Navigation
                 ProjectsActivity.startActivity(this);
                 break;
             case R.id.companies:
+                CompaniesActivity.startActivity(this);
                 break;
             case R.id.groups:
                 GroupsActivity.startActivity(this);

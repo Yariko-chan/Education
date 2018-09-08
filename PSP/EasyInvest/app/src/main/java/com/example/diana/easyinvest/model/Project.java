@@ -19,17 +19,13 @@ import org.json.JSONObject;
         @ForeignKey(
                 entity = Company.class,
                 parentColumns = "id",
-                childColumns = "company_id"),
-        @ForeignKey(
-                entity = Analysis.class,
-                parentColumns = "id",
-                childColumns = "analysis_id")
+                childColumns = "company_id")
         }
 )
 public class Project {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public long id;
 
     @NonNull
     public String name;
@@ -46,10 +42,7 @@ public class Project {
     double[] rawMoneyFlows;
 
     @ColumnInfo(name = "company_id")
-    public int companyId;
-
-    @ColumnInfo(name = "analysis_id")
-    public int analysisId;
+    public long companyId;
 
     Project() {}
 
@@ -88,7 +81,7 @@ public class Project {
         return rawMoneyFlows;
     }
 
-    public int getCompanyId() {
+    public long getCompanyId() {
         return companyId;
     }
 
@@ -99,7 +92,7 @@ public class Project {
         private float r;
         private int duration;
         @NonNull private double[] rawMoneyFlows;
-        int companyId = -1;
+        long companyId = -1;
 
         public Builder() {
         }
@@ -125,7 +118,7 @@ public class Project {
             return this;
         }
 
-        public Builder setCompanyId(@NonNull int companyId) {
+        public Builder setCompanyId(@NonNull long companyId) {
             this.companyId = companyId;
             return this;
         }

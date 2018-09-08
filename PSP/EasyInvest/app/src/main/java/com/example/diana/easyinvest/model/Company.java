@@ -16,7 +16,7 @@ import android.support.annotation.NonNull;
                 childColumns = "group_id"))
 public class Company {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    long id;
 
     @NonNull
     public String name;
@@ -30,13 +30,13 @@ public class Company {
     public String phone;
 
     @ColumnInfo(name = "group_id")
-    public int groupId;
+    public long groupId;
 
     Company() {
     }
 
     @Ignore
-    public Company(@NonNull String name, @NonNull String ownerName, @NonNull String phone, int groupId) {
+    public Company(@NonNull String name, @NonNull String ownerName, @NonNull String phone, long groupId) {
         this.name = name;
         this.ownerName = ownerName;
         this.phone = phone;
@@ -66,7 +66,12 @@ public class Company {
         return phone;
     }
 
-    public int getGroupId() {
+    public long getGroupId() {
         return groupId;
+    }
+
+    @Ignore
+    public long getId() {
+        return id;
     }
 }

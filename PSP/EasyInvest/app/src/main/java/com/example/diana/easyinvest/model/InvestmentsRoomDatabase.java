@@ -30,7 +30,7 @@ public abstract class InvestmentsRoomDatabase extends RoomDatabase {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                             InvestmentsRoomDatabase.class, INVESTMENTS_DATABASE)
-//                            .addCallback(sRoomDatabaseCallback)
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -42,8 +42,8 @@ public abstract class InvestmentsRoomDatabase extends RoomDatabase {
             new RoomDatabase.Callback(){
 
                 @Override
-                public void onOpen (@NonNull SupportSQLiteDatabase db){
-                    super.onOpen(db);
+                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    super.onCreate(db);
                     new PopulateDbAsync(instance).execute();
                 }
             };
@@ -66,6 +66,7 @@ public abstract class InvestmentsRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
+            groupDao.insert(new Group("Default"));
             return null;
         }
     }

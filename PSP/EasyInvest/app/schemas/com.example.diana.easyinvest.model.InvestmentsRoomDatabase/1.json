@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b8aa313747ede0987567ca686f527195",
+    "identityHash": "05d083b802be87cfb8b5c45a349ac81a",
     "entities": [
       {
         "tableName": "projects",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT, `r` REAL NOT NULL, `duration` INTEGER NOT NULL, `flows` TEXT, `company_id` INTEGER NOT NULL, `analysis_id` INTEGER NOT NULL, FOREIGN KEY(`company_id`) REFERENCES `companies`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`analysis_id`) REFERENCES `analysis`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT, `r` REAL NOT NULL, `duration` INTEGER NOT NULL, `flows` TEXT, `company_id` INTEGER NOT NULL, FOREIGN KEY(`company_id`) REFERENCES `companies`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -49,12 +49,6 @@
             "columnName": "company_id",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "analysisId",
-            "columnName": "analysis_id",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -80,17 +74,6 @@
             "onUpdate": "NO ACTION",
             "columns": [
               "company_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          },
-          {
-            "table": "analysis",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "analysis_id"
             ],
             "referencedColumns": [
               "id"
@@ -287,7 +270,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b8aa313747ede0987567ca686f527195\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"05d083b802be87cfb8b5c45a349ac81a\")"
     ]
   }
 }

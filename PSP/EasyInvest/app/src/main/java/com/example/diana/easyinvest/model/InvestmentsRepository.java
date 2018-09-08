@@ -7,6 +7,7 @@ import com.example.diana.easyinvest.model.tasks.InsertAnalysisAsyncTask;
 import com.example.diana.easyinvest.model.tasks.InsertCompanyAsyncTask;
 import com.example.diana.easyinvest.model.tasks.InsertGroupAsyncTask;
 import com.example.diana.easyinvest.model.tasks.InsertProjectAsyncTask;
+import com.example.diana.easyinvest.utils.CustomEventListener;
 
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class InvestmentsRepository {
 
     /* Projects */
 
-    public void insert(Project project) {
-        new InsertProjectAsyncTask(projectsDao, project).execute();
+    public void insert(Project project, CustomEventListener<Long> l) {
+        new InsertProjectAsyncTask(projectsDao, project, l).execute();
     }
 
     public LiveData<List<Project>> getAllProjects() {

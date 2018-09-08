@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.example.diana.easyinvest.R;
 import com.example.diana.easyinvest.model.Group;
+import com.example.diana.easyinvest.view.adapters.GroupsAdapter;
 import com.example.diana.easyinvest.viewmodels.GroupsViewModel;
 
 import java.util.List;
@@ -52,9 +53,8 @@ public class GroupsActivity extends NavMenuActivity implements View.OnClickListe
                 .get(GroupsViewModel.class);
         LiveData<List<Group>> groups = viewModel.getGroups();
         if (groups != null) {
-            groups.observe(this, groupsList -> {
-                adapter.setGroups(groupsList);
-                adapter.notifyDataSetChanged();
+            groups.observe(this, groupList -> {
+                adapter.setGroups(groupList);
             });
         }
     }

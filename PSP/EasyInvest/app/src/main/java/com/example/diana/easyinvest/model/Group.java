@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "groups")
 public class Group {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    long id;
 
     @NonNull
     public String name;
@@ -23,5 +23,10 @@ public class Group {
     @NonNull
     public String getName() {
         return name;
+    }
+
+    @Ignore
+    public long getId() {
+        return id;
     }
 }

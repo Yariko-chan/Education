@@ -2,18 +2,17 @@ package com.example.diana.easyinvest.view;
 
 import android.app.Activity;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.diana.easyinvest.R;
 import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.view.adapters.ProjectsAdapter;
 import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
 import java.util.List;
@@ -40,12 +39,9 @@ public class ProjectsActivity extends NavMenuActivity implements View.OnClickLis
         viewModel = ViewModelProviders.of(this).get(ProjectsViewModel.class);
         LiveData<List<Project>> projects = viewModel.getProjects();
         if (projects != null) {
-            projects.observe(this, new Observer<List<Project>>() {
-                @Override
-                public void onChanged(@Nullable List<Project> projects) {
-                    adapter.setProjects(projects);
-                    adapter.notifyDataSetChanged();
-                }
+            projects.observe(this, projects1 -> {
+                adapter.setProjects(projects1);
+                adapter.notifyDataSetChanged();
             });
         }
 

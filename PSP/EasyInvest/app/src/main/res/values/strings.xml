@@ -5,14 +5,15 @@
 
     <!--AddProjectActivity-->
     <string name="add_project_title">New project</string>
-    <string name="name">Name…</string>
-    <string name="description">Description…</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
     <string name="project_length">Length of the project (in years)</string>
     <string name="r_description">Discount rate R (minimal profit, in percents)</string>
     <string name="enter_money_flow">Enter money flow values for each year:</string>
     <string name="year_num">Year %d</string>
     <string name="years">years</string>
     <string name="percent" translatable="false">%</string>
+
     <string name="error_project_no_name">Set a name for project</string>
     <string name="error_project_no_description">Write a description for project</string>
     <string name="error_project_no_r">Provide a discount rate of the project</string>
@@ -26,6 +27,8 @@
     <string name="error_positive_number">Number should be positive</string>
     <string name="error_positive_integer">Number should be positive integer</string>
     <string name="error_wrong_format">Wrong format</string>
+    <string name="error_should_contain_positive">Money flows should contain at least 1 positive value</string>
+    <string name="error_duration_too_big">Too big duration</string>
 
     <!--Menu-->
     <string name="project">Project</string>
@@ -34,4 +37,14 @@
     <string name="money_format">%.2f rub</string>
     <string name="duration_format">%d years</string>
     <string name="group_name">Group name</string>
+
+    <!--Add company-->
+    <string name="owner_name">Owner name</string>
+    <string name="phone">Phone number</string>
+    <string name="add_company_title">New company</string>
+
+    <string name="error_company_no_name">Set a name for company</string>
+    <string name="error_company_no_owner_name">Write an owner name</string>
+    <string name="error_company_no_description">Write a description for company</string>
+    <string name="error_company_no_phone">Set a correct phone for company</string>
 </resources>

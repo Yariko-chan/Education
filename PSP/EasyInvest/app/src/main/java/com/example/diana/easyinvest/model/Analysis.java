@@ -21,7 +21,7 @@ public class Analysis {
     int id;
 
     @ColumnInfo(name = "project_id")
-    int projectId;
+    long projectId;
 
     int pp;
     int dpp;
@@ -42,6 +42,7 @@ public class Analysis {
         irr = Calculations.getIRR(p.getFlows(), Calculations.DEFAULT_IRR_PRECISION);
         mirr = Calculations.getMIRR(p.getFlows(), p.getR());
         pi = Calculations.getPI(p.getFlows(), p.getR());
+        projectId = p.id;
     }
 }
 

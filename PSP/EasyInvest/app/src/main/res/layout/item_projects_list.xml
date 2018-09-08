@@ -9,45 +9,37 @@
         android:id="@+id/name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/mid_header"
-        android:textColor="@color/colorPrimaryText"
-        android:padding="5dp"
         app:layout_constraintEnd_toStartOf="@+id/fourty_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Chemodano" />
+        tools:text="Chemodano"
+        style="@style/text_top_header" />
 
     <TextView
         android:id="@+id/description_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:lines="5"
-        android:textSize="@dimen/plain_text"
-        android:textColor="@color/colorSecondaryText"
-        android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fourty_guideline"
         app:layout_constraintTop_toBottomOf="@id/name_tv"
-        tools:text="@string/lorem_ipsum" />
+        tools:text="@string/lorem_ipsum"
+        style="@style/text_description" />
 
     <TextView
         android:id="@+id/investments_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/mid_header"
-        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/mid_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/fourty_guideline"
-        tools:text="20000" />
+        tools:text="20000"
+        style="@style/text_mid_header" />
 
     <TextView
         android:id="@+id/duration_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="@dimen/mid_header"
-        android:padding="10dp"
+        style="@style/text_mid_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/fourty_guideline"
         app:layout_constraintTop_toTopOf="@+id/mid_guideline"

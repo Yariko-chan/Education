@@ -3,4 +3,5 @@
     <dimen name="top_header">16sp</dimen>
     <dimen name="mid_header">14sp</dimen>
     <dimen name="plain_text">11sp</dimen>
+    <dimen name="small_text">9sp</dimen>
 </resources>

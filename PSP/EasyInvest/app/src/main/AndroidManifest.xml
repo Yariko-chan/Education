@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".view.AddProjectActivity" />
         <activity android:name=".view.GroupsActivity" />
+        <activity android:name=".view.CompaniesActivity"/>
+        <activity android:name=".view.AddCompanyActivity" />
     </application>
 
 </manifest>

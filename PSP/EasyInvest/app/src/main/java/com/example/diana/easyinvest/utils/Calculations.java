@@ -164,11 +164,11 @@ public class Calculations {
         do {
             // detect rUp such that NPV(rUp) < 0
             while (!(getNPV(moneyFlows, rUp) < 0)) {
-                rUp *= 1.1f;
+                rUp += precision;
             }
             // detect rDown such that NPV(rDown) > 0
             while (!(getNPV(moneyFlows, rDown) > 0)) {
-                rDown /= 1.1f;
+                rDown -= precision;
             }
             IRR = getIRR(moneyFlows, rUp, rDown);
             NPV_IRR = getNPV(moneyFlows, IRR);

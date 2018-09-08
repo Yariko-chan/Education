@@ -1,20 +1,30 @@
 package com.example.diana.easyinvest.view;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.diana.easyinvest.R;
+import com.example.diana.easyinvest.model.Analysis;
+import com.example.diana.easyinvest.model.Company;
 import com.example.diana.easyinvest.model.InvestmentsRepository;
 import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.utils.ArrayUtils;
+import com.example.diana.easyinvest.utils.CustomEventListener;
+import com.example.diana.easyinvest.view.adapters.CompaniesSpinnerAdapter;
+import com.example.diana.easyinvest.viewmodels.AddProjectViewModel;
 import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
 import java.util.ArrayList;
@@ -28,10 +38,12 @@ public class AddProjectActivity extends EditActivity {
     @BindView(R.id.description_et) EditText descriptionEt;
     @BindView(R.id.r_et)           EditText rEt;
     @BindView(R.id.duration_et)    EditText durationEt;
+    @BindView(R.id.company_spinner)Spinner  companiesSpinner;
 
-    private ProjectsViewModel projectsViewModel;
+    private AddProjectViewModel viewModel;
 
     private List<EditText> yearsEts;
+    private List<Company> companies;
 
     @Override
     protected int getContentView() {
@@ -43,12 +55,21 @@ public class AddProjectActivity extends EditActivity {
         super.onCreate(savedInstanceState);
         durationEt.setOnKeyListener(this::onKey);
 
-        projectsViewModel = ViewModelProviders.of(this).get(ProjectsViewModel.class);
-    }
 
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, AddProjectActivity.class);
-        context.startActivity(intent);
+        CompaniesSpinnerAdapter adapter = new CompaniesSpinnerAdapter(this, android.R.layout.simple_spinner_item);
+        companiesSpinner.setAdapter(adapter);
+
+        viewModel = ViewModelProviders.of(this).get(AddProjectViewModel.class);
+        LiveData<List<Company>> groups = viewModel.getCompanies();
+        if (groups != null) {
+            groups.observe(this, new Observer<List<Company>>() {
+                @Override
+                public void onChanged(@Nullable List<Company> companies) {
+                    AddProjectActivity.this.companies = companies;
+                    adapter.setCompanies(companies);
+                }
+            });
+        }
     }
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -59,31 +80,38 @@ public class AddProjectActivity extends EditActivity {
     }
 
     private void addYearsEts() {
+        int count; // additional for 0'th year
+
         try {
-            int count = Integer.valueOf(durationEt.getText().toString()) + 1; // additional for 0'th year
-            LinearLayout myLayout = findViewById(R.id.container);
-            myLayout.removeAllViews();
-            TextView tv = new TextView(this);
-            tv.setText(R.string.enter_money_flow);
-            myLayout.addView(tv);
-            yearsEts = new ArrayList<>(count);
-            for (int i = 0; i < count; i++) {
-                EditText et = new EditText(this);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0, 50, 0, 0);
-                et.setLayoutParams(params);
-                et.setHint(getString(R.string.year_num, i));
-                et.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_SIGNED);
-                et.setFocusableInTouchMode(true);
-                myLayout.addView(et);
-                yearsEts.add(et);
-            }
-            yearsEts.get(0).requestFocus();
+            count = Integer.valueOf(durationEt.getText().toString()) + 1;
         } catch (NumberFormatException e) {
-            durationEt.setError("Number is invalid, should be positive integer");
+            durationEt.setError(getString(R.string.error_positive_integer));
+            return;
         }
+        if (count < 0 || count > 20) {
+            durationEt.setError(getString(R.string.error_duration_too_big));
+            return;
+        }
+        LinearLayout myLayout = findViewById(R.id.container);
+        myLayout.removeAllViews();
+        TextView tv = new TextView(this);
+        tv.setText(R.string.enter_money_flow);
+        myLayout.addView(tv);
+        yearsEts = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            EditText et = new EditText(this);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 50, 0, 0);
+            et.setLayoutParams(params);
+            et.setHint(getString(R.string.year_num, i));
+            et.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_SIGNED);
+            et.setFocusableInTouchMode(true);
+            myLayout.addView(et);
+            yearsEts.add(et);
+        }
+        yearsEts.get(0).requestFocus();
     }
 
     @Override
@@ -113,6 +141,17 @@ public class AddProjectActivity extends EditActivity {
             durationEt.setError(getString(R.string.error_project_no_duration));
             return false;
         }
+        int count; // additional for 0'th year
+        try {
+            count = Integer.valueOf(durationEt.getText().toString()) + 1;
+        } catch (NumberFormatException e) {
+            durationEt.setError(getString(R.string.error_positive_integer));
+            return false;
+        }
+        if (count < 0 || count > 20) {
+            durationEt.setError(getString(R.string.error_duration_too_big));
+            return false;
+        }
         if (yearsEts == null || yearsEts.isEmpty()) {
             addYearsEts();
         }
@@ -127,23 +166,16 @@ public class AddProjectActivity extends EditActivity {
     }
 
     @Override
-    protected void save() {
+    protected boolean save() {
         String name = nameEt.getText().toString();
         String description = descriptionEt.getText().toString();
 
         float r;
-        int duration;
         try {
             r = Float.valueOf(rEt.getText().toString());
         } catch (NumberFormatException e) {
             rEt.setError(getString(R.string.error_positive_number));
-            return;
-        }
-        try {
-            duration = Integer.valueOf(durationEt.getText().toString());
-        } catch (NumberFormatException e) {
-            durationEt.setError(getString(R.string.error_positive_integer));
-            return;
+            return false;
         }
         double[] flows = new double[yearsEts.size()];
         for (int i = 0; i < yearsEts.size(); i++) {
@@ -151,19 +183,32 @@ public class AddProjectActivity extends EditActivity {
                 flows[i] = Double.valueOf(yearsEts.get(i).getText().toString());
             } catch (NumberFormatException e) {
                 yearsEts.get(i).setError(getString(R.string.error_wrong_format));
-                return;
+                return false;
             }
         }
+        if (!ArrayUtils.containsPositives(flows)) {
+            yearsEts.get(0).setError(getString(R.string.error_wrong_format));
+            return false;
+        }
+        long companyId = companies.get(companiesSpinner.getSelectedItemPosition()).getId();
         Project newProject = new Project.Builder()
                 .setName(name)
+                .setCompanyId(companyId)
                 .setDescription(description)
                 .setR(r)
                 .setMoneyFlows(flows)
                 .build();
+        viewModel.insert(newProject, result -> {
+            newProject.id = result;
+            Analysis newAnalysis = new Analysis(newProject);
+            viewModel.insert(newAnalysis);
+        });
 
-        projectsViewModel.insert(newProject);
+        return true;
+    }
 
-        InvestmentsRepository repository = new InvestmentsRepository(getApplication());
-        repository.insert(newProject);
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, AddProjectActivity.class);
+        context.startActivity(intent);
     }
 }

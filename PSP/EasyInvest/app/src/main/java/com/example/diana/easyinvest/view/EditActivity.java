@@ -37,8 +37,9 @@ public abstract class EditActivity extends BaseActivity {
                 return true;
             case R.id.action_save:
                 if (checkCorrectness()) {
-                    save();
-                    finish();
+                    if (save()) {
+                        finish();
+                    }
                 }
                 return true;
         }
@@ -49,5 +50,5 @@ public abstract class EditActivity extends BaseActivity {
     protected abstract int getScreenTitle();
 
     protected abstract boolean checkCorrectness();
-    protected abstract void save();
+    protected abstract boolean save();
 }

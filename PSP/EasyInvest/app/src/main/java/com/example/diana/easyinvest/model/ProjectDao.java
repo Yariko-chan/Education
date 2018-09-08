@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProjectDao {
 
     @Insert
-    void insert(Project project);
+    long insert(Project project);
 
     @Query("SELECT * FROM projects")
     LiveData<List<Project>> getAll();

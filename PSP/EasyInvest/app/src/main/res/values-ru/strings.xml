@@ -4,8 +4,8 @@
 
     <!--AddProjectActivity-->
     <string name="add_project_title">Новый проект</string>
-    <string name="name">Название…</string>
-    <string name="description">Описание…</string>
+    <string name="name">Название</string>
+    <string name="description">Описание</string>
     <string name="project_length">Продолжительность проекта</string>
     <string name="r_description">Ставка дисконтирования R (минимальный доход, в процентах)</string>
     <string name="enter_money_flow">Введите значение денежного потока по годам:</string>
@@ -21,6 +21,9 @@
     <string name="save">Сохранить</string>
     <string name="error_positive_number">Неверный формат, число должно быть положительное</string>
     <string name="error_positive_integer">Неверный формат, число должно быть положительное целое</string>
+    <string name="error_wrong_format">Неверный формат</string>
+    <string name="error_should_contain_positive">Денежные потоки должны содержать как положиельные, так и отрицательные числа</string>
+    <string name="error_duration_too_big">Слишком большая продолжительность</string>
 
     <!--Menu-->
     <string name="project">Проекты</string>
@@ -31,5 +34,15 @@
 
     <!--Groups-->
     <string name="group_name">Название группы</string>
+
+    <!--Company add-->
+    <string name="owner_name">Имя владельца</string>
+    <string name="phone">Телефон</string>
+    <string name="add_company_title">Новая компания</string>
+
+    <string name="error_company_no_name">Укажите название компании</string>
+    <string name="error_company_no_owner_name">Укажите имя владельца компании</string>
+    <string name="error_company_no_description">Опишите компанию</string>
+    <string name="error_company_no_phone">Укажите корректный номер телефона</string>
 
 </resources>
