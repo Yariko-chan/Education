@@ -52,7 +52,7 @@ public class CompaniesActivity extends NavMenuActivity implements View.OnClickLi
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_main;
+        return R.layout.activity_list;
     }
 
     @Override

@@ -23,12 +23,13 @@ public class ProjectsActivity extends NavMenuActivity implements View.OnClickLis
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_main;
+        return R.layout.activity_list;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.project);
 
         RecyclerView rv = findViewById(R.id.list);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

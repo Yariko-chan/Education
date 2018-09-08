@@ -34,7 +34,7 @@ public class GroupsActivity extends NavMenuActivity implements View.OnClickListe
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_main;
+        return R.layout.activity_list;
     }
 
     @Override
