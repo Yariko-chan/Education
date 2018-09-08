@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.model;
+package com.example.diana.easyinvest.model.companies;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -7,6 +7,8 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import com.example.diana.easyinvest.model.groups.Group;
 
 @Entity(tableName = "companies",
         indices = {@Index("group_id")},

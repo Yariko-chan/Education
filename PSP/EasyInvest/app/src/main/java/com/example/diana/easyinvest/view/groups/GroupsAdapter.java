@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view.adapters;
+package com.example.diana.easyinvest.view.groups;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Group;
+import com.example.diana.easyinvest.model.groups.Group;
 
 import java.util.ArrayList;
 import java.util.List;

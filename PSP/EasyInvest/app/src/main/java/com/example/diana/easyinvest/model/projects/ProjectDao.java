@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.model;
+package com.example.diana.easyinvest.model.projects;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

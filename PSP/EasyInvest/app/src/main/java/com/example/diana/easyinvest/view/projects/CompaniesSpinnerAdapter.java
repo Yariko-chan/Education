@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view.adapters;
+package com.example.diana.easyinvest.view.projects;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,21 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.diana.easyinvest.model.Group;
+import com.example.diana.easyinvest.model.companies.Company;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupsSpinnerAdapter extends ArrayAdapter {
+public class CompaniesSpinnerAdapter extends ArrayAdapter {
 
-    private List<Group> groups = new ArrayList<>();
+    private List<Company> companies = new ArrayList<>();
 
-    public GroupsSpinnerAdapter(@NonNull Context context, int resource) {
+    public CompaniesSpinnerAdapter(@NonNull Context context, int resource) {
         super(context, resource);
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
         notifyDataSetChanged();
     }
 
@@ -34,7 +34,7 @@ public class GroupsSpinnerAdapter extends ArrayAdapter {
             view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
         }
         TextView tv = (TextView) view.findViewById(android.R.id.text1);
-        tv.setText(groups.get(position).getName());
+        tv.setText(companies.get(position).getName());
         return view;
     }
 
@@ -42,12 +42,12 @@ public class GroupsSpinnerAdapter extends ArrayAdapter {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View row = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
         TextView tv = (TextView) row.findViewById(android.R.id.text1);
-        tv.setText(groups.get(position).getName());
+        tv.setText(companies.get(position).getName());
         return row;
     }
 
     @Override
     public int getCount() {
-        return groups.size();
+        return companies.size();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.diana.easyinvest.model.tasks;
 
-import com.example.diana.easyinvest.model.Analysis;
-import com.example.diana.easyinvest.model.AnalysisDao;
+import com.example.diana.easyinvest.model.analysis.Analysis;
+import com.example.diana.easyinvest.model.analysis.AnalysisDao;
 
 public class InsertAnalysisAsyncTask extends DbAsyncTask {
 

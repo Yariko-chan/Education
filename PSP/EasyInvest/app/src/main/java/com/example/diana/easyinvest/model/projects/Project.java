@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.model;
+package com.example.diana.easyinvest.model.projects;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -9,9 +9,10 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.example.diana.easyinvest.model.companies.Company;
+
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 @Entity(tableName = "projects",
         indices = {@Index("company_id")},

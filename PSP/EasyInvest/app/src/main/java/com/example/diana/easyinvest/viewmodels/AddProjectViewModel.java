@@ -5,10 +5,10 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.example.diana.easyinvest.model.Analysis;
-import com.example.diana.easyinvest.model.Company;
+import com.example.diana.easyinvest.model.analysis.Analysis;
+import com.example.diana.easyinvest.model.companies.Company;
 import com.example.diana.easyinvest.model.InvestmentsRepository;
-import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.model.projects.Project;
 import com.example.diana.easyinvest.utils.CustomEventListener;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.example.diana.easyinvest.model.tasks;
 
-import com.example.diana.easyinvest.model.Project;
-import com.example.diana.easyinvest.model.ProjectDao;
+import com.example.diana.easyinvest.model.projects.Project;
+import com.example.diana.easyinvest.model.projects.ProjectDao;
 import com.example.diana.easyinvest.utils.CustomEventListener;
 
 public class InsertProjectAsyncTask extends DbResultedAsyncTask {

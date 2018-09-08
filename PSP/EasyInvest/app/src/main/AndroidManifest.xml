@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ProjectsActivity">
+        <activity android:name=".view.projects.ProjectsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.AddProjectActivity" />
-        <activity android:name=".view.GroupsActivity" />
-        <activity android:name=".view.CompaniesActivity"/>
-        <activity android:name=".view.AddCompanyActivity" />
+        <activity android:name=".view.projects.AddProjectActivity" />
+        <activity android:name=".view.groups.GroupsActivity" />
+        <activity android:name=".view.companies.CompaniesActivity"/>
+        <activity android:name=".view.companies.AddCompanyActivity" />
     </application>
 
 </manifest>

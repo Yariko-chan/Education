@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view;
+package com.example.diana.easyinvest.view.companies;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,8 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Company;
-import com.example.diana.easyinvest.view.adapters.CompaniesAdapter;
+import com.example.diana.easyinvest.model.companies.Company;
+import com.example.diana.easyinvest.view.NavMenuActivity;
 import com.example.diana.easyinvest.viewmodels.CompaniesViewModel;
 
 import java.util.List;

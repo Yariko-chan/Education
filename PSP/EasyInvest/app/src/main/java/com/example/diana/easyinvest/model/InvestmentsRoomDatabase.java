@@ -8,6 +8,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.example.diana.easyinvest.model.analysis.Analysis;
+import com.example.diana.easyinvest.model.analysis.AnalysisDao;
+import com.example.diana.easyinvest.model.companies.CompaniesDao;
+import com.example.diana.easyinvest.model.companies.Company;
+import com.example.diana.easyinvest.model.groups.Group;
+import com.example.diana.easyinvest.model.groups.GroupDao;
+import com.example.diana.easyinvest.model.projects.Project;
+import com.example.diana.easyinvest.model.projects.ProjectDao;
+
 @Database(entities = {
         Project.class,
         Analysis.class,

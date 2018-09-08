@@ -1,7 +1,7 @@
 package com.example.diana.easyinvest.model.tasks;
 
-import com.example.diana.easyinvest.model.Group;
-import com.example.diana.easyinvest.model.GroupDao;
+import com.example.diana.easyinvest.model.groups.Group;
+import com.example.diana.easyinvest.model.groups.GroupDao;
 
 public class InsertGroupAsyncTask extends DbAsyncTask {
 

@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.model;
+package com.example.diana.easyinvest.model.analysis;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -7,6 +7,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.example.diana.easyinvest.model.projects.Project;
 import com.example.diana.easyinvest.utils.Calculations;
 
 @Entity(tableName = "analysis",

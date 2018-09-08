@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.diana.easyinvest.R;
+import com.example.diana.easyinvest.view.companies.CompaniesActivity;
+import com.example.diana.easyinvest.view.groups.GroupsActivity;
+import com.example.diana.easyinvest.view.projects.ProjectsActivity;
 
 public abstract class NavMenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;

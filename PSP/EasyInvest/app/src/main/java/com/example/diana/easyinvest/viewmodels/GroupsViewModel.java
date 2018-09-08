@@ -5,8 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.example.diana.easyinvest.App;
-import com.example.diana.easyinvest.model.Group;
+import com.example.diana.easyinvest.model.groups.Group;
 import com.example.diana.easyinvest.model.InvestmentsRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view;
+package com.example.diana.easyinvest.view.groups;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Group;
-import com.example.diana.easyinvest.view.adapters.GroupsAdapter;
+import com.example.diana.easyinvest.model.groups.Group;
+import com.example.diana.easyinvest.view.NavMenuActivity;
 import com.example.diana.easyinvest.viewmodels.GroupsViewModel;
 
 import java.util.List;

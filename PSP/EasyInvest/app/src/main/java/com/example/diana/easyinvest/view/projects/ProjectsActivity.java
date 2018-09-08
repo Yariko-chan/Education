@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view;
+package com.example.diana.easyinvest.view.projects;
 
 import android.app.Activity;
 import android.arch.lifecycle.LiveData;
@@ -11,8 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Project;
-import com.example.diana.easyinvest.view.adapters.ProjectsAdapter;
+import com.example.diana.easyinvest.model.projects.Project;
+import com.example.diana.easyinvest.view.NavMenuActivity;
 import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
 import java.util.List;

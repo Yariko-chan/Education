@@ -3,6 +3,14 @@ package com.example.diana.easyinvest.model;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 
+import com.example.diana.easyinvest.model.analysis.Analysis;
+import com.example.diana.easyinvest.model.analysis.AnalysisDao;
+import com.example.diana.easyinvest.model.companies.CompaniesDao;
+import com.example.diana.easyinvest.model.companies.Company;
+import com.example.diana.easyinvest.model.groups.Group;
+import com.example.diana.easyinvest.model.groups.GroupDao;
+import com.example.diana.easyinvest.model.projects.Project;
+import com.example.diana.easyinvest.model.projects.ProjectDao;
 import com.example.diana.easyinvest.model.tasks.InsertAnalysisAsyncTask;
 import com.example.diana.easyinvest.model.tasks.InsertCompanyAsyncTask;
 import com.example.diana.easyinvest.model.tasks.InsertGroupAsyncTask;

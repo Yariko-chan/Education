@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view.adapters;
+package com.example.diana.easyinvest.view.projects;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.model.projects.Project;
 
 import java.util.ArrayList;
 import java.util.List;

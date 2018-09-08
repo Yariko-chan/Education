@@ -6,7 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.example.diana.easyinvest.model.InvestmentsRepository;
-import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.model.projects.Project;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.diana.easyinvest.view;
+package com.example.diana.easyinvest.view.projects;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
@@ -17,15 +17,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.diana.easyinvest.R;
-import com.example.diana.easyinvest.model.Analysis;
-import com.example.diana.easyinvest.model.Company;
-import com.example.diana.easyinvest.model.InvestmentsRepository;
-import com.example.diana.easyinvest.model.Project;
+import com.example.diana.easyinvest.model.analysis.Analysis;
+import com.example.diana.easyinvest.model.companies.Company;
+import com.example.diana.easyinvest.model.projects.Project;
 import com.example.diana.easyinvest.utils.ArrayUtils;
-import com.example.diana.easyinvest.utils.CustomEventListener;
-import com.example.diana.easyinvest.view.adapters.CompaniesSpinnerAdapter;
+import com.example.diana.easyinvest.view.EditActivity;
 import com.example.diana.easyinvest.viewmodels.AddProjectViewModel;
-import com.example.diana.easyinvest.viewmodels.ProjectsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
