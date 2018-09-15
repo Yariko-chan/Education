@@ -44,7 +44,7 @@
     </style>
 
     <style name="text_description">
-        <item name="android:lines">5</item>
+        <item name="android:maxLines">5</item>
         <item name="android:textSize">@dimen/plain_text</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:padding">10dp</item>

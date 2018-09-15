@@ -6,18 +6,23 @@
     <!--AddProjectActivity-->
     <string name="add_project_title">New project</string>
     <string name="name">Name</string>
+    <string name="select_company">Select company</string>
     <string name="description">Description</string>
     <string name="project_length">Length of the project (in years)</string>
     <string name="r_description">Discount rate R (minimal profit, in percents)</string>
-    <string name="enter_money_flow">Enter money flow values for each year:</string>
+    <string name="enter_init_invest">Initial investment</string>
+    <string name="enter_money_flow">Money flow values for each year</string>
     <string name="year_num">Year %d</string>
     <string name="years">years</string>
     <string name="percent" translatable="false">%</string>
+    <string name="units">units</string>
+    <string name="minus" translatable="false">-</string>
 
     <string name="error_project_no_name">Set a name for project</string>
     <string name="error_project_no_description">Write a description for project</string>
     <string name="error_project_no_r">Provide a discount rate of the project</string>
     <string name="error_project_no_duration">Provide duration of the project</string>
+    <string name="error_project_no_init_invest">Provide initial investments of the project</string>
     <string name="error_project_no_year_value">Provide a value for this year</string>
 
     <!--Edit actionbar-->

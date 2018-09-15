@@ -18,8 +18,9 @@
         </activity>
         <activity android:name=".view.projects.AddProjectActivity" />
         <activity android:name=".view.groups.GroupsActivity" />
-        <activity android:name=".view.companies.CompaniesActivity"/>
+        <activity android:name=".view.companies.CompaniesActivity" />
         <activity android:name=".view.companies.AddCompanyActivity" />
+        <activity android:name=".view.projects.ProjectViewActivity"></activity>
     </application>
 
 </manifest>

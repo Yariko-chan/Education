@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -35,6 +36,7 @@ public class AddProjectActivity extends EditActivity {
     @BindView(R.id.description_et) EditText descriptionEt;
     @BindView(R.id.r_et)           EditText rEt;
     @BindView(R.id.duration_et)    EditText durationEt;
+    @BindView(R.id.init_invest_et) EditText initInvestEt;
     @BindView(R.id.company_spinner)Spinner  companiesSpinner;
 
     private AddProjectViewModel viewModel;
@@ -51,7 +53,7 @@ public class AddProjectActivity extends EditActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         durationEt.setOnKeyListener(this::onKey);
-
+        initInvestEt.setOnKeyListener(this::onKey);
 
         CompaniesSpinnerAdapter adapter = new CompaniesSpinnerAdapter(this, android.R.layout.simple_spinner_item);
         companiesSpinner.setAdapter(adapter);
@@ -71,16 +73,35 @@ public class AddProjectActivity extends EditActivity {
 
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-            addYearsEts();
+            switch (v.getId()) {
+                case R.id.duration_et:
+                    addYearsEts();
+                    initInvestEt.requestFocus();
+                    break;
+                case R.id.init_invest_et:
+                    if (yearsEts.isEmpty()) {
+                        addYearsEts();
+                    }
+                    yearsEts.get(0).requestFocus();
+                    break;
+            }
         }
         return true;
     }
 
     private void addYearsEts() {
-        int count; // additional for 0'th year
 
+        LinearLayout myLayout = findViewById(R.id.container);
+        myLayout.removeAllViews();
+
+        TextView tv = new TextView(this);
+        tv.setText(R.string.enter_money_flow);
+        tv.setTextAppearance(this, R.style.text_top_header);
+        myLayout.addView(tv);
+
+        int count;
         try {
-            count = Integer.valueOf(durationEt.getText().toString()) + 1;
+            count = Integer.valueOf(durationEt.getText().toString());
         } catch (NumberFormatException e) {
             durationEt.setError(getString(R.string.error_positive_integer));
             return;
@@ -89,26 +110,26 @@ public class AddProjectActivity extends EditActivity {
             durationEt.setError(getString(R.string.error_duration_too_big));
             return;
         }
-        LinearLayout myLayout = findViewById(R.id.container);
-        myLayout.removeAllViews();
-        TextView tv = new TextView(this);
-        tv.setText(R.string.enter_money_flow);
-        myLayout.addView(tv);
         yearsEts = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            EditText et = new EditText(this);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 50, 0, 0);
-            et.setLayoutParams(params);
-            et.setHint(getString(R.string.year_num, i));
-            et.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_SIGNED);
-            et.setFocusableInTouchMode(true);
+            EditText et = createYearEt(getString(R.string.year_num,i + 1));
             myLayout.addView(et);
             yearsEts.add(et);
         }
-        yearsEts.get(0).requestFocus();
+    }
+
+    @NonNull
+    private EditText createYearEt(String hint) {
+        EditText et = new EditText(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 50, 0, 0);
+        et.setLayoutParams(params);
+        et.setHint(hint);
+        et.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_SIGNED);
+        et.setFocusableInTouchMode(true);
+        return et;
     }
 
     @Override
@@ -149,6 +170,11 @@ public class AddProjectActivity extends EditActivity {
             durationEt.setError(getString(R.string.error_duration_too_big));
             return false;
         }
+        if (TextUtils.isEmpty(initInvestEt.getText().toString())) {
+            initInvestEt.requestFocus();
+            initInvestEt.setError(getString(R.string.error_project_no_init_invest));
+            return false;
+        }
         if (yearsEts == null || yearsEts.isEmpty()) {
             addYearsEts();
         }
@@ -174,8 +200,14 @@ public class AddProjectActivity extends EditActivity {
             rEt.setError(getString(R.string.error_positive_number));
             return false;
         }
-        double[] flows = new double[yearsEts.size()];
-        for (int i = 0; i < yearsEts.size(); i++) {
+        double[] flows = new double[yearsEts.size() + 1];
+        try {
+            flows[0] = - Double.valueOf(initInvestEt.getText().toString());
+        } catch (NumberFormatException e) {
+            yearsEts.get(0).setError(getString(R.string.error_wrong_format));
+            return false;
+        }
+        for (int i = 1; i < yearsEts.size(); i++) {
             try {
                 flows[i] = Double.valueOf(yearsEts.get(i).getText().toString());
             } catch (NumberFormatException e) {
@@ -207,5 +239,11 @@ public class AddProjectActivity extends EditActivity {
     public static void startActivity(Context context) {
         Intent intent = new Intent(context, AddProjectActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveClicked() {
+        super.onSaveClicked();
+        ProjectViewActivity.startActivity(this, 0);
     }
 }

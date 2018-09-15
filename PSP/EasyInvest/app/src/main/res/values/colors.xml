@@ -9,4 +9,9 @@
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="textDefault">#151515</color>
+
+    <!--https://colorscheme.ru/#0341ToVuCw0w0-->
+    <color name="red">#FA7268</color>
+    <color name="orange">#FAAE68</color>
+    <color name="green">#5CDD72</color>
 </resources>

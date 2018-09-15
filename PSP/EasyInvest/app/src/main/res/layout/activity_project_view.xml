@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.projects.ProjectViewActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Actionbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name_tv"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Chemodano" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/investments_tv"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/name_tv"
+                tools:text="20000" />
+
+            <TextView
+                android:id="@+id/r_tv"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/investments_tv"
+                tools:text="15%" />
+
+            <TextView
+                android:id="@+id/duration_tv"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/r_tv"
+                tools:text="5 лет" />
+
+            <TextView
+                android:id="@+id/investments_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Начальные инвестиции:"
+                app:layout_constraintBaseline_toBaselineOf="@id/investments_tv"
+                app:layout_constraintEnd_toEndOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/r_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="r:"
+                app:layout_constraintBaseline_toBaselineOf="@id/r_tv"
+                app:layout_constraintEnd_toEndOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/duration_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Продолжительность:"
+                app:layout_constraintBaseline_toBaselineOf="@id/duration_tv"
+                app:layout_constraintEnd_toEndOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                style="@style/text_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/duration_tv"
+                tools:text="@string/lorem_ipsum" />
+
+            <TextView
+                android:id="@+id/money_flows_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Денежные потоки (по годам): "
+                app:layout_constraintTop_toBottomOf="@+id/description_tv" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/money_flows_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/money_flows_label"
+                tools:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/item_money_flow"
+                tools:orientation="horizontal"
+                tools:spanCount="5" />
+
+            <TextView
+                android:id="@+id/analysis_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Результаты анализа: "
+                app:layout_constraintTop_toBottomOf="@+id/money_flows_list" />
+
+            <TableLayout
+                android:id="@+id/analysis_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1, 2"
+                app:layout_constraintTop_toBottomOf="@+id/analysis_label">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PP" />
+
+                    <TextView
+                        android:id="@+id/pp_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3" />
+
+                    <TextView
+                        android:id="@+id/pp_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Проект окупится за 3 года" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DPP" />
+
+                    <TextView
+                        android:id="@+id/dpp_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="3" />
+
+                    <TextView
+                        android:id="@+id/dpp_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Проект окупится за 3 года" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ARR" />
+
+                    <TextView
+                        android:id="@+id/arr_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="13%" />
+
+                    <TextView
+                        android:id="@+id/arr_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="В среднем проект вернёт 13% инвестиций в год" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NPV" />
+
+                    <TextView
+                        android:id="@+id/npv_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="+3" />
+
+                    <TextView
+                        android:id="@+id/npv_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Проект прибыльный" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IRR" />
+
+                    <TextView
+                        android:id="@+id/irr_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="0.05" />
+
+                    <TextView
+                        android:id="@+id/irr_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="При r = 15% проект прибыльный" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MIRR" />
+
+                    <TextView
+                        android:id="@+id/mirr_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="0.05" />
+
+                    <TextView
+                        android:id="@+id/mirr_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="При r = 15% проект прибыльный" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PI" />
+
+                    <TextView
+                        android:id="@+id/pi_value"
+                        style="@style/text_mid_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="+3" />
+
+                    <TextView
+                        android:id="@+id/pi_description"
+                        style="@style/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Каждая единица инвестиций приносит 3 единицы прибыли" />
+                </TableRow>
+            </TableLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

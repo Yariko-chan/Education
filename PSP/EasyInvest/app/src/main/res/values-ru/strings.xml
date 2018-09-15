@@ -5,16 +5,20 @@
     <!--AddProjectActivity-->
     <string name="add_project_title">Новый проект</string>
     <string name="name">Название</string>
+    <string name="select_company">Выберите компанию</string>
     <string name="description">Описание</string>
     <string name="project_length">Продолжительность проекта</string>
     <string name="r_description">Ставка дисконтирования R (минимальный доход, в процентах)</string>
-    <string name="enter_money_flow">Введите значение денежного потока по годам:</string>
+    <string name="enter_init_invest">Начальные инвестиции</string>
+    <string name="enter_money_flow">Денежные потоки по годам</string>
     <string name="year_num">Год %d</string>
     <string name="years">лет</string>
+    <string name="units">ден. ед.</string>
     <string name="error_project_no_name">Укажите название проекта</string>
     <string name="error_project_no_description">Опишите проект</string>
     <string name="error_project_no_r">Укажите ставку дисконтирования</string>
     <string name="error_project_no_duration">Укажите продолжительность проекта</string>
+    <string name="error_project_no_init_invest">Укажите начальные инвестиции</string>
     <string name="error_project_no_year_value">Укажите значение для этого года</string>
 
     <!--Edit actionbar-->

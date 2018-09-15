@@ -74,6 +74,7 @@ public class Calculations {
 
     /**
      * Accounting Rate of Return
+     * medium percent of investments return per year
      *
      * @param investments investments yearly (must not contain 0's)
      * @param profits profits yearly  (must not contain 0's)

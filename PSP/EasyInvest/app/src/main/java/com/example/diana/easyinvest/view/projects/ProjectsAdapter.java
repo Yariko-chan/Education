@@ -65,7 +65,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
             nameTV.setText(project.getName());
             descriptionTV.setText(project.getDescription());
             investmentTV.setText(String.format(Locale.US, c.getString(R.string.money_format), project.getFlows()[0]));
-            investmentTV.setText(String.format(Locale.US, c.getString(R.string.duration_format), project.getDuration()));
+            durationTV.setText(String.format(Locale.US, c.getString(R.string.duration_format), project.getDuration()));
         }
     }
 }

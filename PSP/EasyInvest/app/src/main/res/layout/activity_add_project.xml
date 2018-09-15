@@ -17,20 +17,37 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".view.projects.AddProjectActivity"
             android:padding="20dp">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                style="@style/text_top_header"
+                android:labelFor="@id/name_et"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/name_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:inputType="textPersonName"
-                android:hint="@string/name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+            <TextView
+                android:id="@+id/company_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_company"
+                style="@style/text_top_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_et" />
 
             <Spinner
                 android:id="@+id/company_spinner"
@@ -38,17 +55,25 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_et" />
+                app:layout_constraintTop_toBottomOf="@+id/company_tv" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                style="@style/text_top_header"
+                android:labelFor="@id/description_et"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/company_spinner" />
 
             <EditText
                 android:id="@+id/description_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:inputType="textMultiLine"
-                android:hint="@string/description"
-                android:lines="5"
-                app:layout_constraintTop_toBottomOf="@id/company_spinner"
+                android:maxLines="5"
+                app:layout_constraintTop_toBottomOf="@id/description_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -57,12 +82,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/r_description"
+                style="@style/text_top_header"
+                android:labelFor="@id/r_et"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_et" />
 
             <EditText
                 android:id="@+id/r_et"
-                android:layout_width="50dp"
+                android:layout_width="@dimen/units_et"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:textAlignment="viewStart"
@@ -73,8 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:labelFor="@id/r_et"
                 android:text="@string/percent"
+                style="@style/text_top_header"
                 app:layout_constraintBaseline_toBaselineOf="@+id/r_et"
                 app:layout_constraintStart_toEndOf="@+id/r_et" />
 
@@ -84,24 +111,51 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:text="@string/project_length"
+                style="@style/text_top_header"
+                android:labelFor="@id/duration_et"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/r_et" />
 
             <EditText
                 android:id="@+id/duration_et"
-                android:layout_width="50dp"
+                android:layout_width="@dimen/units_et"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/years_tv" />
 
             <TextView
-                android:labelFor="@id/duration_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/years"
                 app:layout_constraintStart_toEndOf="@+id/duration_et"
                 app:layout_constraintBaseline_toBaselineOf="@+id/duration_et"/>
+
+            <TextView
+                android:id="@+id/init_invest_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/enter_init_invest"
+                style="@style/text_top_header"
+                android:labelFor="@id/init_invest_et"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/duration_et" />
+
+            <EditText
+                android:id="@+id/init_invest_et"
+                android:layout_width="@dimen/units_et"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/init_invest_tv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/units"
+                app:layout_constraintStart_toEndOf="@+id/init_invest_et"
+                app:layout_constraintBaseline_toBaselineOf="@+id/init_invest_et"/>
 
             <LinearLayout
                 android:id="@+id/container"
@@ -109,7 +163,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/duration_et" />
+                app:layout_constraintTop_toBottomOf="@+id/init_invest_et" >
+
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

@@ -3,13 +3,11 @@ package com.example.diana.easyinvest.view;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.diana.easyinvest.R;
 
-public abstract class EditActivity extends BaseActivity {
+public abstract class ViewActivity extends BaseActivity {
 
     @Override
     protected void onStart() {
@@ -23,40 +21,15 @@ public abstract class EditActivity extends BaseActivity {
         actionbar.setTitle(getScreenTitle());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.save_menu, menu);
-        return true;
-    }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackClicked();
-                return true;
-            case R.id.action_save:
-                onSaveClicked();
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onBackClicked() {
-        finish();
-    }
-
-    protected void onSaveClicked() {
-        if (checkCorrectness()) {
-            if (save()) {
-                finish();
-            }
-        }
-    }
-
     @StringRes
-    protected abstract int getScreenTitle();
-
-    protected abstract boolean checkCorrectness();
-    protected abstract boolean save();
+    protected abstract String getScreenTitle();
 }
