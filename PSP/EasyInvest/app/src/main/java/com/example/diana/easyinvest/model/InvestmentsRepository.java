@@ -58,6 +58,10 @@ public class InvestmentsRepository {
         return projectsDao.getCompanyProjects(id);
     }
 
+    public LiveData<Project> getProject(long id) {
+        return projectsDao.getProject(id);
+    }
+
     /* Groups */
 
     public void insert(Group g) {
@@ -85,6 +89,10 @@ public class InvestmentsRepository {
     }
 
     public LiveData<Analysis> getProjectAnalysis(int projectId) {
+        return analysisDao.getAnalysis(projectId);
+    }
+
+    public LiveData<Analysis> getAnalysis(long projectId) {
         return analysisDao.getAnalysis(projectId);
     }
 

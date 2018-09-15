@@ -18,5 +18,5 @@ public interface AnalysisDao {
 
 
     @Query("SELECT * FROM analysis WHERE project_id = :id LIMIT 1 OFFSET 0")
-    public LiveData<Analysis> getAnalysis(int id);
+    public LiveData<Analysis> getAnalysis(long id);
 }

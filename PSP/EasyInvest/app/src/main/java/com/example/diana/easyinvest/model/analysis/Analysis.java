@@ -45,5 +45,50 @@ public class Analysis {
         pi = Calculations.getPI(p.getFlows(), p.getR());
         projectId = p.id;
     }
+
+    @Ignore
+    public int getId() {
+        return id;
+    }
+
+    @Ignore
+    public long getProjectId() {
+        return projectId;
+    }
+
+    @Ignore
+    public int getPp() {
+        return pp;
+    }
+
+    @Ignore
+    public int getDpp() {
+        return dpp;
+    }
+
+    @Ignore
+    public double getArr() {
+        return arr;
+    }
+
+    @Ignore
+    public double getNpv() {
+        return npv;
+    }
+
+    @Ignore
+    public double getIrr() {
+        return irr;
+    }
+
+    @Ignore
+    public double getMirr() {
+        return mirr;
+    }
+
+    @Ignore
+    public double getPi() {
+        return pi;
+    }
 }
 

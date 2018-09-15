@@ -43,6 +43,7 @@ public class AddProjectActivity extends EditActivity {
 
     private List<EditText> yearsEts;
     private List<Company> companies;
+    private Project newProject;
 
     @Override
     protected int getContentView() {
@@ -79,7 +80,7 @@ public class AddProjectActivity extends EditActivity {
                     initInvestEt.requestFocus();
                     break;
                 case R.id.init_invest_et:
-                    if (yearsEts.isEmpty()) {
+                    if (yearsEts == null || yearsEts.isEmpty()) {
                         addYearsEts();
                     }
                     yearsEts.get(0).requestFocus();
@@ -220,7 +221,7 @@ public class AddProjectActivity extends EditActivity {
             return false;
         }
         long companyId = companies.get(companiesSpinner.getSelectedItemPosition()).getId();
-        Project newProject = new Project.Builder()
+        newProject = new Project.Builder()
                 .setName(name)
                 .setCompanyId(companyId)
                 .setDescription(description)
@@ -231,6 +232,7 @@ public class AddProjectActivity extends EditActivity {
             newProject.id = result;
             Analysis newAnalysis = new Analysis(newProject);
             viewModel.insert(newAnalysis);
+            ProjectViewActivity.startActivity(this, newProject.id);
         });
 
         return true;
@@ -244,6 +246,5 @@ public class AddProjectActivity extends EditActivity {
     @Override
     protected void onSaveClicked() {
         super.onSaveClicked();
-        ProjectViewActivity.startActivity(this, 0);
     }
 }
