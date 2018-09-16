@@ -46,7 +46,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         return projects.size();
     }
 
-    public class ProjectHolder extends RecyclerView.ViewHolder {
+    public class ProjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.name_tv)        TextView nameTV;
         @BindView(R.id.description_tv) TextView descriptionTV;
@@ -54,18 +54,26 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.Projec
         @BindView(R.id.duration_tv)    TextView durationTV;
 
         private Context c;
+        private long id;
 
         public ProjectHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             c = view.getContext();
+            view.setOnClickListener(this);
         }
 
         public void bind(Project project) {
+            id = project.getId();
             nameTV.setText(project.getName());
             descriptionTV.setText(project.getDescription());
             investmentTV.setText(String.format(Locale.US, c.getString(R.string.money_format), project.getFlows()[0]));
             durationTV.setText(String.format(Locale.US, c.getString(R.string.duration_format), project.getDuration()));
+        }
+
+        @Override
+        public void onClick(View v) {
+            ProjectViewActivity.startActivity(c, id);
         }
     }
 }

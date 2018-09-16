@@ -47,6 +47,10 @@ public class Project {
 
     Project() {}
 
+    public long getId() {
+        return id;
+    }
+
     @NonNull
     public String getName() {
         return name;

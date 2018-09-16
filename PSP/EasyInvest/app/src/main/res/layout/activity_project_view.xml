@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/name_tv"
-                style="@style/text_top_header"
+                style="@style/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +102,7 @@
 
             <TextView
                 android:id="@+id/money_flows_label"
-                style="@style/text_mid_header"
+                style="@style/text_top_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Денежные потоки (по годам): "
@@ -120,7 +120,7 @@
 
             <TextView
                 android:id="@+id/analysis_label"
-                style="@style/text_mid_header"
+                style="@style/text_top_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Результаты анализа: "
@@ -128,183 +128,162 @@
 
             <TableLayout
                 android:id="@+id/analysis_table"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:stretchColumns="1, 2"
-                app:layout_constraintTop_toBottomOf="@+id/analysis_label">
+                style="@style/AppTabLayout"
+                android:shrinkColumns="2"
+                app:layout_constraintTop_toBottomOf="@+id/analysis_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TableRow
+                    android:id="@+id/pp_row"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:background="@color/red">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="PP" />
 
                     <TextView
                         android:id="@+id/pp_value"
+                        android:layout_gravity="center_horizontal"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="3" />
 
                     <TextView
                         android:id="@+id/pp_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="Проект окупится за 3 года" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/dpp_row"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:background="@color/orange">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="DPP" />
 
                     <TextView
                         android:id="@+id/dpp_value"
+                        android:layout_gravity="center_horizontal"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="3" />
 
                     <TextView
                         android:id="@+id/dpp_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="Проект окупится за 3 года" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/arr_row"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:background="@color/green"
+                    tools:textColor="@color/colorWhiteText">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="ARR" />
 
                     <TextView
                         android:id="@+id/arr_value"
+                        android:layout_gravity="center_horizontal"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="13%" />
 
                     <TextView
                         android:id="@+id/arr_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="В среднем проект вернёт 13% инвестиций в год" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/npv_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="NPV" />
 
                     <TextView
                         android:id="@+id/npv_value"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         tools:text="+3" />
 
                     <TextView
                         android:id="@+id/npv_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="Проект прибыльный" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/irr_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="IRR" />
 
                     <TextView
                         android:id="@+id/irr_value"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         tools:text="0.05" />
 
                     <TextView
                         android:id="@+id/irr_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="При r = 15% проект прибыльный" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/mirr_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="MIRR" />
 
                     <TextView
                         android:id="@+id/mirr_value"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         tools:text="0.05" />
 
                     <TextView
                         android:id="@+id/mirr_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="При r = 15% проект прибыльный" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/pi_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="PI" />
 
                     <TextView
                         android:id="@+id/pi_value"
                         style="@style/text_mid_header"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         tools:text="+3" />
 
                     <TextView
                         android:id="@+id/pi_description"
                         style="@style/text_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         tools:text="Каждая единица инвестиций приносит 3 единицы прибыли" />
                 </TableRow>
             </TableLayout>

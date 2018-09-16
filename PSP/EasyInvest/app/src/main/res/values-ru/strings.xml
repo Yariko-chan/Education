@@ -49,4 +49,16 @@
     <string name="error_company_no_description">Опишите компанию</string>
     <string name="error_company_no_phone">Укажите корректный номер телефона</string>
 
+    <!--ProjectViewActivity-->
+    <string name="pp_profitable">Проект окупится после %s лет</string>
+    <string name="pp_unprofitable">Проект не окупается</string>
+    <string name="arr_investments_return">В среднем проект возвращает %s%% инвестиций в год</string>
+    <string name="npv_profitable">Проект приносит прибыль</string>
+    <string name="npv_unprofitable">Проект убыточен</string>
+    <string name="npv_pays_off">Преокт окупается</string>
+    <string name="irr_profitable">При r = %s%% проект приносит прибыль</string>
+    <string name="irr_unprofitable">При r = %s%% проект убыточен</string>
+    <string name="irr_pays_off">При r = %s%% проект окупается</string>
+    <string name="pi_invest_return">Каждая единица инвестиций возвращает %s единицы прибыли</string>
+
 </resources>

@@ -53,12 +53,9 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.Hold
         @BindView(R.id.description_tv) TextView descriptionTV;
         @BindView(R.id.phone_tv)       TextView phoneTv;
 
-        private Context c;
-
         public Holder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            c = view.getContext();
         }
 
         public void bind(Company company) {

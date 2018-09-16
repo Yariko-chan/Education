@@ -130,6 +130,7 @@ public class AddProjectActivity extends EditActivity {
         et.setHint(hint);
         et.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_SIGNED);
         et.setFocusableInTouchMode(true);
+        et.setFocusable(true);
         return et;
     }
 
@@ -205,12 +206,12 @@ public class AddProjectActivity extends EditActivity {
         try {
             flows[0] = - Double.valueOf(initInvestEt.getText().toString());
         } catch (NumberFormatException e) {
-            yearsEts.get(0).setError(getString(R.string.error_wrong_format));
+            initInvestEt.setError(getString(R.string.error_wrong_format));
             return false;
         }
-        for (int i = 1; i < yearsEts.size(); i++) {
+        for (int i = 0; i < yearsEts.size(); i++) {
             try {
-                flows[i] = Double.valueOf(yearsEts.get(i).getText().toString());
+                flows[i + 1] = Double.valueOf(yearsEts.get(i).getText().toString());
             } catch (NumberFormatException e) {
                 yearsEts.get(i).setError(getString(R.string.error_wrong_format));
                 return false;

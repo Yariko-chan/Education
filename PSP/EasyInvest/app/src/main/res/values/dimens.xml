@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="top_header">16sp</dimen>
-    <dimen name="mid_header">14sp</dimen>
-    <dimen name="plain_text">11sp</dimen>
-    <dimen name="small_text">9sp</dimen>
+    <dimen name="header">22sp</dimen>
+    <dimen name="top_header">18sp</dimen>
+    <dimen name="mid_header">16sp</dimen>
+    <dimen name="plain_text">13sp</dimen>
+    <dimen name="small_text">11sp</dimen>
     <dimen name="units_et">90dp</dimen>
 </resources>
