@@ -137,7 +137,7 @@ public class Calculations {
         }
         double sum = 0f;
         for (int t = 0; t < moneyFlows.length; t++) {
-            sum += moneyFlows[t] * DFt(r, t);;
+            sum += moneyFlows[t] * DFt(r, t);
         }
         return sum;
     }

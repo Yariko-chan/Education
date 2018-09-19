@@ -17,7 +17,7 @@ public interface ProjectDao {
     LiveData<List<Project>> getAll();
 
     @Query("SELECT * FROM projects WHERE company_id = :companyId")
-    LiveData<List<Project>> getCompanyProjects(int companyId);
+    LiveData<List<Project>> getCompanyProjects(long companyId);
 
     @Query("SELECT * FROM projects WHERE id = :id")
     LiveData<Project> getProject(long id);

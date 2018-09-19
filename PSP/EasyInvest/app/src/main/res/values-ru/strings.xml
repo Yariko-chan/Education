@@ -40,9 +40,10 @@
     <string name="group_name">Название группы</string>
 
     <!--Company add-->
-    <string name="owner_name">Имя владельца</string>
+    <string name="owner_name">Владелец</string>
     <string name="phone">Телефон</string>
     <string name="add_company_title">Новая компания</string>
+    <string name="select_group">Выберите группу</string>
 
     <string name="error_company_no_name">Укажите название компании</string>
     <string name="error_company_no_owner_name">Укажите имя владельца компании</string>
@@ -60,5 +61,10 @@
     <string name="irr_unprofitable">При r = %s%% проект убыточен</string>
     <string name="irr_pays_off">При r = %s%% проект окупается</string>
     <string name="pi_invest_return">Каждая единица инвестиций возвращает %s единицы прибыли</string>
+    <string name="init_invest">Начальные инвестиции:</string>
+    <string name="r">r:</string>
+    <string name="duration">Продолжительность:</string>
+    <string name="money_flows">Денежные потоки (по годам):</string>
+    <string name="analysis_results">Результаты анализа:</string>
 
 </resources>

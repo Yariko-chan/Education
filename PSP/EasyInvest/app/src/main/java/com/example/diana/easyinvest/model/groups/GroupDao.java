@@ -11,7 +11,7 @@ import java.util.List;
 public interface GroupDao {
 
     @Insert
-    public void insert(Group group);
+    public long insert(Group group);
 
     @Query("SELECT * FROM groups")
     LiveData<List<Group>> getAll();

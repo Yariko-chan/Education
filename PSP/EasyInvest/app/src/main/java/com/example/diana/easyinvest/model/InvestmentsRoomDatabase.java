@@ -75,7 +75,15 @@ public abstract class InvestmentsRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            groupDao.insert(new Group("Default"));
+            long defaultId = groupDao.insert(new Group("Default"));
+            groupDao.insert(new Group("Restaurants"));
+            groupDao.insert(new Group("Cars"));
+            groupDao.insert(new Group("IT"));
+            groupDao.insert(new Group("Services"));
+            groupDao.insert(new Group("Stores"));
+
+            Company c = new Company("No company", "-", "-", defaultId);
+            companiesDao.insert(c);
             return null;
         }
     }

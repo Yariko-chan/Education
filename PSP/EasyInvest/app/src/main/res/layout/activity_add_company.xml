@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,29 +16,57 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                style="@style/text_top_header"
+                android:labelFor="@id/name_et"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/name_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
+                android:layout_marginTop="8dp"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+            <TextView
+                android:id="@+id/owner_name_tv"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/owner_name_et"
+                android:text="@string/owner_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_et" />
 
             <EditText
                 android:id="@+id/owner_name_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/owner_name"
                 android:inputType="textPersonName"
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_et" />
+                app:layout_constraintTop_toBottomOf="@+id/owner_name_tv" />
+
+            <TextView
+                android:id="@+id/select_group_tv"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/owner_name_et" />
 
             <Spinner
                 android:id="@+id/group_spinner"
@@ -47,30 +74,48 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/owner_name_et" />
+                app:layout_constraintTop_toBottomOf="@+id/select_group_tv" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/description_et"
+                android:text="@string/description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/group_spinner" />
 
             <EditText
                 android:id="@+id/description_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/description"
                 android:inputType="textMultiLine"
                 android:lines="5"
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/group_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/description_tv" />
+
+            <TextView
+                android:id="@+id/phone_tv"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/phone_et"
+                android:text="@string/phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_et" />
 
             <EditText
                 android:id="@+id/phone_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone"
                 android:inputType="phone"
                 android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_et" />
+                app:layout_constraintTop_toBottomOf="@+id/phone_tv" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

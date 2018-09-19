@@ -17,10 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.projects.AddProjectActivity" />
-        <activity android:name=".view.groups.GroupsActivity" />
+        <activity android:name=".view.projects.ProjectViewActivity" />
         <activity android:name=".view.companies.CompaniesActivity" />
         <activity android:name=".view.companies.AddCompanyActivity" />
-        <activity android:name=".view.projects.ProjectViewActivity"></activity>
+        <activity android:name=".view.companies.CompanyViewActivity" />
+        <activity android:name=".view.groups.GroupsActivity" />
     </application>
 
 </manifest>

@@ -93,9 +93,7 @@ public class ProjectViewActivity extends ViewActivity {
             });
         }
 
-
         // todo divide repository to several classes
-        // todo fill data
     }
 
     private void updateProjectData(Project p) {

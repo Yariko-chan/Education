@@ -54,7 +54,7 @@ public class InvestmentsRepository {
         return projects;
     }
 
-    public LiveData<List<Project>> getCompanyProjects(int id) {
+    public LiveData<List<Project>> getCompanyProjects(long id) {
         return projectsDao.getCompanyProjects(id);
     }
 
@@ -111,5 +111,9 @@ public class InvestmentsRepository {
 
     public LiveData<List<Company>> getGroupCompanies(int groupId) {
         return companiesDao.getGroupCompanies(groupId);
+    }
+
+    public LiveData<Company> getCompany(long id) {
+        return companiesDao.getCompany(id);
     }
 }

@@ -197,7 +197,7 @@ public class AddProjectActivity extends EditActivity {
 
         float r;
         try {
-            r = Float.valueOf(rEt.getText().toString());
+            r = (Float.valueOf(rEt.getText().toString())) / 100f; // percents to float
         } catch (NumberFormatException e) {
             rEt.setError(getString(R.string.error_positive_number));
             return false;

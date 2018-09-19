@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.projects.ProjectViewActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Actionbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name_tv"
+                style="@style/header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Chemodano" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/owner_name_tv"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/name_tv"
+                tools:text="Матрёшкин В. В." />
+
+            <TextView
+                android:id="@+id/phone_tv"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/owner_name_tv"
+                tools:text="+375257073555" />
+
+            <TextView
+                android:id="@+id/owner_name_label"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/owner_name"
+                app:layout_constraintBaseline_toBaselineOf="@id/owner_name_tv"
+                app:layout_constraintEnd_toEndOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/text_mid_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                app:layout_constraintBaseline_toBaselineOf="@id/phone_tv"
+                app:layout_constraintEnd_toEndOf="@+id/guideline" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                style="@style/text_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_tv"
+                tools:text="@string/lorem_ipsum" />
+
+            <TextView
+                android:id="@+id/projects_label"
+                style="@style/text_top_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/project"
+                app:layout_constraintTop_toBottomOf="@+id/description_tv" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/projects_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/projects_label"
+                tools:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/item_projects_list"
+                tools:orientation="vertical" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

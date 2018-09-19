@@ -6,26 +6,25 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.example.diana.easyinvest.model.InvestmentsRepository;
-import com.example.diana.easyinvest.model.analysis.Analysis;
 import com.example.diana.easyinvest.model.companies.Company;
 import com.example.diana.easyinvest.model.projects.Project;
 
 import java.util.List;
 
-public class ProjectViewViewModel extends AndroidViewModel {
+public class CompanyViewViewModel extends AndroidViewModel {
 
-    private InvestmentsRepository repository;
+    private final InvestmentsRepository repository;
 
-    public ProjectViewViewModel(@NonNull Application application) {
+    public CompanyViewViewModel(@NonNull Application application) {
         super(application);
         repository = new InvestmentsRepository(application);
     }
 
-    public LiveData<Project> getProject(long id) {
-        return repository.getProject(id);
+    public LiveData<Company> getCompany(long id) {
+        return repository.getCompany(id);
     }
 
-    public LiveData<Analysis> getAnalysis(long projectId) {
-        return repository.getAnalysis(projectId);
+    public LiveData<List<Project>> getCompanyProjects(long id) {
+        return repository.getCompanyProjects(id);
     }
 }

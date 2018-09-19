@@ -46,23 +46,34 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.Hold
         return companies.size();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.name_tv)        TextView nameTV;
         @BindView(R.id.owner_name_tv)  TextView ownerNameTv;
         @BindView(R.id.description_tv) TextView descriptionTV;
         @BindView(R.id.phone_tv)       TextView phoneTv;
 
+        private Context c;
+        private long id;
+
         public Holder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            c = view.getContext();
+            view.setOnClickListener(this);
         }
 
         public void bind(Company company) {
+            id = company.getId();
             nameTV.setText(company.getName());
             ownerNameTv.setText(company.getOwnerName());
             descriptionTV.setText(company.getDescription());
             phoneTv.setText(company.getPhone());
+        }
+
+        @Override
+        public void onClick(View v) {
+            CompanyViewActivity.startActivity(c, id);
         }
     }
 }

@@ -44,8 +44,9 @@
     <string name="group_name">Group name</string>
 
     <!--Add company-->
-    <string name="owner_name">Owner name</string>
+    <string name="owner_name">Owner</string>
     <string name="phone">Phone number</string>
+    <string name="select_group">Select group</string>
     <string name="add_company_title">New company</string>
     <string name="error_company_no_name">Set a name for company</string>
     <string name="error_company_no_owner_name">Write an owner name</string>
@@ -63,4 +64,9 @@
     <string name="irr_unprofitable">Project is unprofitable at r = %s%%</string>
     <string name="irr_pays_off">Project just pays off at r = %s%%</string>
     <string name="pi_invest_return">Every investment unit return %s profit units</string>
+    <string name="init_invest">Initial investment:</string>
+    <string name="r">r:</string>
+    <string name="duration">Duration:</string>
+    <string name="money_flows">Money flows (per year):</string>
+    <string name="analysis_results">Analysis results:</string>
 </resources>
