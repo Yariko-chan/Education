@@ -39,7 +39,8 @@
     <string name="project">Projects</string>
     <string name="companies">Companies</string>
     <string name="groups">Groups</string>
-    <string name="money_format">%.2f rub</string>
+    <string name="money_format">%.2f units</string>
+    <string name="r_format" translatable="false">%.2f%%</string>
     <string name="duration_format">%d years</string>
     <string name="group_name">Group name</string>
 

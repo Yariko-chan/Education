@@ -18,6 +18,8 @@ import com.example.diana.easyinvest.utils.Numbers;
 import com.example.diana.easyinvest.view.ViewActivity;
 import com.example.diana.easyinvest.viewmodels.ProjectViewViewModel;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 
 public class ProjectViewActivity extends ViewActivity {
@@ -100,9 +102,12 @@ public class ProjectViewActivity extends ViewActivity {
         this.p = p;
         setTitle(p.getName());
         nameTv.setText(p.getName());
-        durationTv.setText(Numbers.unifiedDouble(p.getDuration()));
-        rTv.setText(Numbers.unifiedDouble(p.getR()));
-        investmentsTv.setText(Numbers.unifiedDouble(p.getFlows()[0]));
+        durationTv.setText(
+                String.format(Locale.US, getString(R.string.duration_format), p.getDuration()));
+        rTv.setText(
+                String.format(Locale.US, getString(R.string.r_format), p.getR() * 100));
+        investmentsTv.setText(
+                String.format(Locale.US, getString(R.string.money_format), -p.getFlows()[0]));
         descriptionTv.setText(p.getDescription());
 
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

@@ -33,8 +33,8 @@
     <string name="project">Проекты</string>
     <string name="companies">Компании</string>
     <string name="groups">Группы</string>
-    <string name="money_format">%.2f rub</string>
-    <string name="duration_format">%d years</string>
+    <string name="money_format">%.2f ден. ед.</string>
+    <string name="duration_format">%d лет</string>
 
     <!--Groups-->
     <string name="group_name">Название группы</string>
