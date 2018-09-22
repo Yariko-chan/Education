@@ -75,4 +75,11 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="list_item">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@drawable/item_list_divider</item>
+        <item name="android:paddingStart">@dimen/item_list_hor_padding</item>
+        <item name="android:paddingEnd">@dimen/item_list_hor_padding</item>
+    </style>
+
 </resources>

@@ -22,6 +22,7 @@
         <activity android:name=".view.companies.AddCompanyActivity" />
         <activity android:name=".view.companies.CompanyViewActivity" />
         <activity android:name=".view.groups.GroupsActivity" />
+        <activity android:name=".view.groups.GroupViewActivity" />
     </application>
 
 </manifest>

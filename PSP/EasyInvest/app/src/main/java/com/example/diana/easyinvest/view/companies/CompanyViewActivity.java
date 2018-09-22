@@ -88,6 +88,7 @@ public class CompanyViewActivity extends ViewActivity {
         ownerNameTv.setText(c.getOwnerName());
         phoneTv.setText(c.getPhone());
         descriptionTv.setText(c.getDescription());
+        setTitle(c.getName());
     }
 
     private void updatePojectsList(List<Project> l) {

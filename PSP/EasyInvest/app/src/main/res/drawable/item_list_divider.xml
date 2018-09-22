@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape>
+            <solid android:color="@color/colorWhiteText" />
+        </shape>
+
+    </item>
+    <item android:bottom="3dp" android:left="@dimen/item_list_hor_padding" android:right="@dimen/item_list_hor_padding">
+        <shape >
+
+            <solid android:color="@color/divider" />
+        </shape>
+    </item>
+    <item android:bottom="4dp">
+        <shape>
+            <solid android:color="@color/colorWhiteText" />
+        </shape>
+    </item>
+</layer-list>

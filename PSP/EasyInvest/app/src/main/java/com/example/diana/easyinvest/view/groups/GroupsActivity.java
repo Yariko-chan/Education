@@ -32,6 +32,11 @@ public class GroupsActivity extends NavMenuActivity implements View.OnClickListe
     private GroupsAdapter adapter;
     private GroupsViewModel viewModel;
 
+    public static void startActivity(Activity activity) {
+        Intent i = new Intent(activity, GroupsActivity.class);
+        activity.startActivity(i);
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.activity_list;
@@ -79,10 +84,5 @@ public class GroupsActivity extends NavMenuActivity implements View.OnClickListe
                         .show();
                 break;
         }
-    }
-
-    public static void startActivity(Activity activity) {
-        Intent i = new Intent(activity, GroupsActivity.class);
-        activity.startActivity(i);
     }
 }

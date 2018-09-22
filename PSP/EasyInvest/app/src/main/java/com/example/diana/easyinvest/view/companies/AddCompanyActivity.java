@@ -48,7 +48,7 @@ public class AddCompanyActivity extends EditActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GroupsSpinnerAdapter adapter = new GroupsSpinnerAdapter(this, android.R.layout.simple_spinner_item);
+        GroupsSpinnerAdapter adapter = new GroupsSpinnerAdapter(this, R.layout.item_spinner_adapter);
         groupSpinner.setAdapter(adapter);
         viewModel = ViewModelProviders.of(this).get(AddCompanyViewModel.class);
         LiveData<List<Group>> groups = viewModel.getGroups();

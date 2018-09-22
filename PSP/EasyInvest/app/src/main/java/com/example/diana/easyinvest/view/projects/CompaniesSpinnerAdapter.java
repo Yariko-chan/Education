@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.diana.easyinvest.R;
 import com.example.diana.easyinvest.model.companies.Company;
 
 import java.util.ArrayList;
@@ -31,17 +32,17 @@ public class CompaniesSpinnerAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spinner_adapter, parent, false);
         }
-        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+        TextView tv = (TextView) view.findViewById(R.id.text1);
         tv.setText(companies.get(position).getName());
         return view;
     }
 
 
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
-        TextView tv = (TextView) row.findViewById(android.R.id.text1);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spinner_adapter, parent, false);
+        TextView tv = (TextView) row.findViewById(R.id.text1);
         tv.setText(companies.get(position).getName());
         return row;
     }

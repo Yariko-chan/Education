@@ -18,7 +18,12 @@ public abstract class ViewActivity extends BaseActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_back);
-        actionbar.setTitle(getScreenTitle());
+        setTitle(getScreenTitle());
+    }
+
+    protected void setTitle(String s) {
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle(s);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -30,6 +35,5 @@ public abstract class ViewActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @StringRes
     protected abstract String getScreenTitle();
 }

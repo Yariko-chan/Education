@@ -6,10 +6,10 @@
     style="@style/list_item">
 
     <TextView
-        android:id="@+id/name_tv"
+        android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/header"
+        style="@style/text_mid_header"
         android:layout_gravity="center_vertical|start"
         android:padding="5dp"
         tools:text="Chemodano" />

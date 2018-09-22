@@ -75,6 +75,10 @@ public class InvestmentsRepository {
         return groups;
     }
 
+    public LiveData<Group> getGroup(long id) {
+        return groupDao.getGroup(id);
+    }
+
     /* Analysis */
 
     public void insert(Analysis a) {
@@ -109,7 +113,7 @@ public class InvestmentsRepository {
         return companies;
     }
 
-    public LiveData<List<Company>> getGroupCompanies(int groupId) {
+    public LiveData<List<Company>> getGroupCompanies(long groupId) {
         return companiesDao.getGroupCompanies(groupId);
     }
 

@@ -56,7 +56,7 @@ public class AddProjectActivity extends EditActivity {
         durationEt.setOnKeyListener(this::onKey);
         initInvestEt.setOnKeyListener(this::onKey);
 
-        CompaniesSpinnerAdapter adapter = new CompaniesSpinnerAdapter(this, android.R.layout.simple_spinner_item);
+        CompaniesSpinnerAdapter adapter = new CompaniesSpinnerAdapter(this, R.layout.item_spinner_adapter);
         companiesSpinner.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(this).get(AddProjectViewModel.class);

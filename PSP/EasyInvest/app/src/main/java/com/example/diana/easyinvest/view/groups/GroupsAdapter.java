@@ -49,14 +49,19 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.Holder> {
     public class Holder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.name_tv) TextView nameTv;
+        private long id;
 
         public Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(v -> {
+                GroupViewActivity.startActivity(itemView.getContext(), id);
+            });
         }
 
         public void bind(Group group) {
             nameTv.setText(group.getName());
+            id = group.getId();
         }
     }
 }

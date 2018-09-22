@@ -6,4 +6,5 @@
     <dimen name="plain_text">13sp</dimen>
     <dimen name="small_text">11sp</dimen>
     <dimen name="units_et">90dp</dimen>
+    <dimen name="item_list_hor_padding">10dp</dimen>
 </resources>

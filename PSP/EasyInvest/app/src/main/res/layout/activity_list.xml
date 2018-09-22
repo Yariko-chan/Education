@@ -31,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/item_projects_list"
-                android:padding="10dp" />
+                android:padding="3dp" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add_btn"

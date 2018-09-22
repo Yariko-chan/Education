@@ -15,4 +15,7 @@ public interface GroupDao {
 
     @Query("SELECT * FROM groups")
     LiveData<List<Group>> getAll();
+
+    @Query("SELECT * FROM groups WHERE id = :id")
+    LiveData<Group> getGroup(long id);
 }

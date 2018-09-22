@@ -27,7 +27,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Chemodano" />
+                tools:text="Chemodano"
+                android:visibility="gone"/>
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -102,7 +103,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/projects_label"
                 tools:layoutManager="LinearLayoutManager"
                 tools:listitem="@layout/item_projects_list"
-                tools:orientation="vertical" />
+                tools:orientation="vertical"
+                android:padding="3dp" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

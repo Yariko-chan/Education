@@ -98,6 +98,7 @@ public class ProjectViewActivity extends ViewActivity {
 
     private void updateProjectData(Project p) {
         this.p = p;
+        setTitle(p.getName());
         nameTv.setText(p.getName());
         durationTv.setText(Numbers.unifiedDouble(p.getDuration()));
         rTv.setText(Numbers.unifiedDouble(p.getR()));
