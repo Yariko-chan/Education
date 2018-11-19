@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 
 namespace SHA1_RSA
@@ -13,15 +14,30 @@ namespace SHA1_RSA
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter msg");
-            var s = Console.ReadLine();
-            s = Sha1(s);
-            Console.WriteLine(s);
+
+            int size = 128;
+            for (int i = 0; i <= 128; i++)
+            {
+                Random rand = new Random();
+                byte[] bytes = new byte[i];
+                rand.NextBytes(bytes);
+                byte[] mysha = Sha1(bytes);
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] realsha = sha.ComputeHash(bytes);
+                if (mysha.SequenceEqual(realsha))
+                {
+                    Console.WriteLine("ok");
+                }
+                else
+                {
+                    Console.WriteLine("shame");
+                }
+            }
 
             Console.ReadKey();
         }
 
-        private static string Sha1(string s)
+        private static byte[] Sha1(byte[] initBytes)
         {
             int bytesInPiece = 512 / 8;
 
@@ -36,57 +52,48 @@ namespace SHA1_RSA
             byte firstAdditionalByte = 0x80;  // [10000000]
             byte zeroesAdditionalByte = 0x00; // [00000000]
             // get string bits
-            byte[] initStringInBytes = Encoding.UTF8.GetBytes(s);
-            int initLengthBytesCount = initStringInBytes.Length;
-            // create final array to meet requirement [sizeInBits%512 = 0]
-            var t = initLengthBytesCount + sizeLengthBytesCount;
-            byte[] finalStringInBytes = new byte[t + (bytesInPiece - (t % bytesInPiece))];
+            int initLengthBytesCount = initBytes.Length;
+            // create final array to meet requirement [(sizeInBits + 64bit)%512 = 0]
+            var t = initLengthBytesCount + sizeLengthBytesCount + 1;
+            var size = (t % bytesInPiece == 0) ? t : t + (bytesInPiece - (t % bytesInPiece));
+            byte[] finalBytes = new byte[size];
             // copy string bits
-            initStringInBytes.CopyTo(finalStringInBytes, 0);
+            initBytes.CopyTo(finalBytes, 0);
             // append bit 1 to message
-            finalStringInBytes[initLengthBytesCount] = firstAdditionalByte;
+            finalBytes[initLengthBytesCount] = firstAdditionalByte;
             // index in array, from which size should be appended
-            var sizeStartIndex = finalStringInBytes.Length - sizeLengthBytesCount;
+            var sizeStartIndex = finalBytes.Length - sizeLengthBytesCount;
             // append zero's
             for (int i = initLengthBytesCount + 1; i < sizeStartIndex; i++)
             {
-                finalStringInBytes[i] = zeroesAdditionalByte;
+                finalBytes[i] = zeroesAdditionalByte;
             }
             // append size
             byte[] sizeInBytes = BitConverter.GetBytes((long) initLengthBytesCount * 8 /*in bits*/);
-            sizeInBytes.CopyTo(finalStringInBytes, sizeStartIndex);
-
+            Array.Reverse(sizeInBytes);
+            sizeInBytes.CopyTo(finalBytes, sizeStartIndex);
 
             // PROCESS MESSAGE
             // i is index of first byte in this piece
-            for (int i = 0; i < finalStringInBytes.Length - bytesInPiece; i += bytesInPiece)
+            for (int i = 0; i <= finalBytes.Length - bytesInPiece; i += bytesInPiece)
             {
                 int initialWordCount = 16;
                 int wordCount = 80;
                 int bytesInWord = bytesInPiece / initialWordCount; // 4 byte, 32 bit
-                byte[] words = new byte[wordCount * bytesInWord];
+                uint[] words = new uint[wordCount];
                 // copy 16 initial words
-                Array.Copy(finalStringInBytes, i, words, 0, bytesInPiece);
-                // adding words till 17-80
+                for (int j = 0; j < initialWordCount; j++)
+                {
+                    byte[] wordBytes = new byte[bytesInWord];
+                    int firstWordByteIndex = i + j * bytesInWord;
+                    Array.Copy(finalBytes, firstWordByteIndex, wordBytes, 0, bytesInWord);
+                    words[j] = ByteToUInt32(wordBytes);
+                }
+                // adding words 17-80
                 for (int j = initialWordCount; j < wordCount; j++)
                 {
-                    byte[] result = new byte[bytesInWord];
-                    byte[] temp = new byte[bytesInWord];
-                    // w[i - 3]
-                    Array.Copy(words, bytesInWord * (j - 3), result, 0, bytesInWord);
-                    // w[i - 3] ^ w[i - 8]
-                    Array.Copy(words, bytesInWord * (j - 8), temp, 0, bytesInWord);
-                    Xor(result, temp);
-                    // w[i - 3] ^ w[i - 8] ^ w[i - 14]
-                    Array.Copy(words, bytesInWord * (j - 14), temp, 0, bytesInWord);
-                    Xor(result, temp);
-                    // w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]
-                    Array.Copy(words, bytesInWord * (j - 16), temp, 0, bytesInWord);
-                    Xor(result, temp);
-                    // leftrotate 1
-                    RotateLeft(result, 1);
-                    // copy to words array
-                    Array.Copy(result, 0, words, j, bytesInWord);
+                    words[j] = (words[j - 3] ^ words[j - 8] ^ words[j - 14] ^ words[j - 16]);
+                    words[j] = leftrotate(words[j], 1);
                 }
 
                 // hash values for this piece
@@ -118,61 +125,60 @@ namespace SHA1_RSA
                         k = 0xCA62C1D6;
                     }
 
-                    uint temp = leftrotate(a, 5) + f + e + k +
+                    uint temp = leftrotate(a, 5) + f + e + k + words[j];
+                    e = d;
+                    d = c;
+                    c = leftrotate(b, 30);
+                    b = a;
+                    a = temp;
                 }
-            }
-            
-            return s;
-        }
 
-        /// <summary>
-        /// Computes xor of bytes array and writes result to first array
-        /// If no additional arrays, then first array not changed.
-        /// </summary>
-        /// <param name="byteArray1"></param>
-        /// <param name="additionals"></param>
-        /// <returns></returns>
-        private static byte[] Xor(byte[] byteArray1, params byte[][] additionals)
-        {
-            for (int i = 0; i < byteArray1.Length; i++)
-            {
-                foreach (byte[] b in additionals)
-                {
-                    if (b.Length > i)
-                    {
-                        byteArray1[i] = (byte)(byteArray1[i] ^ b[i]);
-                    }
-                    
-                }
+                // Add this chunk's hash to result so far:
+                h0 = h0 + a;
+                h1 = h1 + b;
+                h2 = h2 + c;
+                h3 = h3 + d;
+                h4 = h4 + e;
             }
 
-            return byteArray1;
-        }
+            h0 = reverse(h0);
+            h1 = reverse(h1);
+            h2 = reverse(h2);
+            h3 = reverse(h3);
+            h4 = reverse(h4);
 
-        /// <summary>
-        /// Rotates byte array left
-        /// </summary>
-        /// <param name="array">Array to left rotate</param>
-        /// <param name="count">Cpunt of bits to rotate</param>
-        private static void RotateLeft(byte[] array, int count)
-        {
-            if (array.Length != 4)
-            {
-                throw new ArgumentException("Byte array for int32 should have size = 4");
-            }
-            uint temp = ByteToUInt32(array);
-            temp = leftrotate(temp, count);
-            BitConverter.GetBytes(temp).CopyTo(array, 0);
+            byte[] result = new byte[20];
+            Array.Copy(BitConverter.GetBytes(h0), 0, result, 0, 4);
+            Array.Copy(BitConverter.GetBytes(h1), 0, result, 4, 4);
+            Array.Copy(BitConverter.GetBytes(h2), 0, result, 8, 4);
+            Array.Copy(BitConverter.GetBytes(h3), 0, result, 12, 4);
+            Array.Copy(BitConverter.GetBytes(h4), 0, result, 16, 4);
+            return result;
+
+//            return h0.ToString("x") + " " + 
+//                   h1.ToString("x") + " " + 
+//                   h2.ToString("x") + " " + 
+//                   h3.ToString("x") + " " + 
+//                   h4.ToString("x");
         }
 
         private static uint ByteToUInt32(byte[] array)
         {
+            // receive array in little-endian
+            Array.Reverse(array);
             return System.BitConverter.ToUInt32(array, 0);
         }
 
         private static uint leftrotate(uint temp, int count)
         {
             return (temp << count) | (temp >> (32 - count));
+        }
+
+        private static uint reverse(uint i)
+        {
+            byte[] bytes = BitConverter.GetBytes(i);
+            Array.Reverse(bytes);
+            return System.BitConverter.ToUInt32(bytes, 0);
         }
     }
 }
