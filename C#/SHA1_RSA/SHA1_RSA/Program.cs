@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 
 
 namespace SHA1_RSA
@@ -7,9 +8,17 @@ namespace SHA1_RSA
     {
         static void Main(string[] args)
         {
-            Sha1.TestSha1();
+            Prime.TestPrimeGenerator(1024, 1);
+            Prime.GetMediumPrimeGeneratorTime(1024, 1000);
 
             Console.ReadKey();
+        }
+
+        
+
+        public static void rsa()
+        {
+
         }
     }
 }

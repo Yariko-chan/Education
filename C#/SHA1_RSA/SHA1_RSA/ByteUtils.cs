@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SHA1_RSA
 {
-    class Utils
+    class ByteUtils
     {
-        private Utils()
+        private ByteUtils()
         {
             // static functions only
         }
+
+        public const byte FirstNonzeroBitByte = 0x80; // [10000000]
+        public const byte LastNonzeroBitByte = 0x01;  // [00000001]
+        public const byte FullZeroBitByte = 0x00;     // [00000000]
 
         /// <summary>
         /// Creates int from little-endian bit-array
@@ -35,5 +35,7 @@ namespace SHA1_RSA
             Array.Reverse(bytes);
             return System.BitConverter.ToUInt32(bytes, 0);
         }
+
+
     }
 }

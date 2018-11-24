@@ -23,8 +23,6 @@ namespace SHA1_RSA
 
             /* PRE-PROCESSING */
             int sizeLengthBytesCount = 64 / 8;
-            byte firstAdditionalByte = 0x80;  // [10000000]
-            byte zeroesAdditionalByte = 0x00; // [00000000]
             // get string bits
             int initLengthBytesCount = initBytes.Length;
             // create final array to meet requirement [(sizeInBits + 64bit)%512 = 0]
@@ -34,13 +32,13 @@ namespace SHA1_RSA
             // copy string bits
             initBytes.CopyTo(finalBytes, 0);
             // append bit 1 to message
-            finalBytes[initLengthBytesCount] = firstAdditionalByte;
+            finalBytes[initLengthBytesCount] = ByteUtils.FirstNonzeroBitByte;
             // index in array, from which size should be appended
             var sizeStartIndex = finalBytes.Length - sizeLengthBytesCount;
             // append zero's
             for (int i = initLengthBytesCount + 1; i < sizeStartIndex; i++)
             {
-                finalBytes[i] = zeroesAdditionalByte;
+                finalBytes[i] = ByteUtils.FullZeroBitByte;
             }
             // append size
             byte[] sizeInBytes = BitConverter.GetBytes((long)initLengthBytesCount * 8 /*in bits*/);
@@ -61,13 +59,13 @@ namespace SHA1_RSA
                     byte[] wordBytes = new byte[bytesInWord];
                     int firstWordByteIndex = i + j * bytesInWord;
                     Array.Copy(finalBytes, firstWordByteIndex, wordBytes, 0, bytesInWord);
-                    words[j] = Utils.ByteToUInt32(wordBytes);
+                    words[j] = ByteUtils.ByteToUInt32(wordBytes);
                 }
                 // adding words 17-80
                 for (int j = initialWordCount; j < wordCount; j++)
                 {
                     words[j] = (words[j - 3] ^ words[j - 8] ^ words[j - 14] ^ words[j - 16]);
-                    words[j] = Utils.leftrotate(words[j], 1);
+                    words[j] = ByteUtils.leftrotate(words[j], 1);
                 }
 
                 // hash values for this piece
@@ -102,10 +100,10 @@ namespace SHA1_RSA
                         k = 0xCA62C1D6;
                     }
 
-                    uint temp = Utils.leftrotate(a, 5) + f + e + k + words[j];
+                    uint temp = ByteUtils.leftrotate(a, 5) + f + e + k + words[j];
                     e = d;
                     d = c;
-                    c = Utils.leftrotate(b, 30);
+                    c = ByteUtils.leftrotate(b, 30);
                     b = a;
                     a = temp;
                 }
@@ -118,11 +116,11 @@ namespace SHA1_RSA
                 h4 = h4 + e;
             }
 
-            h0 = Utils.reverse(h0);
-            h1 = Utils.reverse(h1);
-            h2 = Utils.reverse(h2);
-            h3 = Utils.reverse(h3);
-            h4 = Utils.reverse(h4);
+            h0 = ByteUtils.reverse(h0);
+            h1 = ByteUtils.reverse(h1);
+            h2 = ByteUtils.reverse(h2);
+            h3 = ByteUtils.reverse(h3);
+            h4 = ByteUtils.reverse(h4);
 
             byte[] result = new byte[20];
             Array.Copy(BitConverter.GetBytes(h0), 0, result, 0, 4);
