@@ -8,7 +8,7 @@ namespace SHA1_RSA
     {
         static void Main(string[] args)
         {
-            Prime.TestPrimeGenerator(1024, 1);
+            Prime.TestPrimeGenerator(1024, 10000);
             Prime.GetMediumPrimeGeneratorTime(1024, 1000);
 
             Console.ReadKey();

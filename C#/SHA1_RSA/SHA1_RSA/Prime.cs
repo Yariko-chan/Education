@@ -21,21 +21,26 @@ namespace SHA1_RSA
         /// <returns></returns>
         public static BigInteger GenerateBigPrime(int size)
         {
-            Random rand = new Random();
-            byte[] bytes = new byte[size / 8];
-            rand.NextBytes(bytes);
-            // prevent leading zeros
-            bytes[0] = (byte)(bytes[0] | ByteUtils.FirstNonzeroBitByte);
-            // make it odd
-            bytes[bytes.Length - 1] = (byte)(bytes[bytes.Length - 1] | ByteUtils.LastNonzeroBitByte);
-
-            BigInteger result = new BigInteger(bytes);
-            while (!isPrime(result))
+            while (true)
             {
-                result -= 2;
+                Random rand = new Random();
+                byte[] bytes = new byte[size / 8];
+                rand.NextBytes(bytes);
+                // prevent leading zeros
+                bytes[0] = (byte)(bytes[0] | ByteUtils.SecondNonzeroBitByte);
+                // make it odd
+                bytes[bytes.Length - 1] = (byte)(bytes[bytes.Length - 1] | ByteUtils.LastNonzeroBitByte);
+
+                BigInteger result = new BigInteger(bytes);
+                result = 2 * result - 1; // increase probability to get prime
+                if (isPrime(result))
+                {
+                    return result;
+                }
             }
-            return result;
         }
+
+            
 
         public static bool isPrime(BigInteger b)
         {
@@ -44,14 +49,11 @@ namespace SHA1_RSA
             {
                 BigInteger remainder;
                 BigInteger.DivRem(b, i, out remainder);
-                if (remainder != 0)
-                {
+                if (remainder == 0) {
                     return false;
                 }
-
                 i++;
             }
-
             return true;
         }
 
@@ -60,7 +62,7 @@ namespace SHA1_RSA
             for (int i = 0; i < sampleSize; i++)
             {
                 BigInteger b = GenerateBigPrime(primeSize);
-                if (isPrime(b))
+                if (!isPrime(b))
                 {
                     Console.WriteLine("Generated not prime number: " + b);
                 }
