@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -26,13 +27,14 @@ namespace SHA1_RSA
                 Random rand = new Random();
                 byte[] bytes = new byte[size / 8];
                 rand.NextBytes(bytes);
-                // prevent leading zeros
-                bytes[0] = (byte)(bytes[0] | ByteUtils.SecondNonzeroBitByte);
+
+                bytes[0] = (byte)(bytes[0] | ByteUtils.SecondNonzeroBitByte);// prevent leading zeros
                 // make it odd
                 bytes[bytes.Length - 1] = (byte)(bytes[bytes.Length - 1] | ByteUtils.LastNonzeroBitByte);
 
                 BigInteger result = new BigInteger(bytes);
-                result = 2 * result - 1; // increase probability to get prime
+                if (result < 0) result = -result;
+                //result = 2 * result - 1; // increase probability to get prime
                 if (isPrime(result))
                 {
                     return result;
@@ -44,15 +46,80 @@ namespace SHA1_RSA
 
         public static bool isPrime(BigInteger b)
         {
-            BigInteger i = 2;
-            while (i*i < b)
+            return CheckPrimesLess2000(b) && RabinMillerTest(b, 1);
+        }
+
+        /// <summary>
+        /// Checks if number has factor among primes under 2000
+        /// This check excludes >80% of composite numbers.
+        ///
+        /// Uses wheel factorization to find primes under 2000
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        private static bool CheckPrimesLess2000(BigInteger b)
+        {
+            if (Mod(b, 2) == 0) return false;
+            if (Mod(b, 3) == 0) return false;
+            if (Mod(b, 5) == 0) return false;
+            
+            int[] primes = {1, 7, 11, 13, 17, 19, 23, 29};
+            foreach (int prime in primes)
             {
-                BigInteger remainder;
-                BigInteger.DivRem(b, i, out remainder);
-                if (remainder == 0) {
-                    return false;
+                int k = (prime == 1) ? 1 : 0;
+                BigInteger primeDivisor = 30 * k + prime;
+                do
+                {
+                    if (Mod(b, primeDivisor) == 0) return false;
+                    k++;
+                    primeDivisor = 30 * k + prime;
+                } while (primeDivisor < 2000);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Makes one iteration of Rabin-Miller test
+        /// </summary>
+        /// <param name="p">number to test</param>
+        /// <returns></returns>
+        private static bool RabinMillerTest(BigInteger p/*n*/, int rounds/*k*/)
+        {
+            //int b/*s*/ = (int) BigInteger.Log(p - 1, 2.0);
+            //BigInteger m/*t*/ = BigInteger.Divide((p - 1), new BigInteger(Math.Pow(2.0, b)));
+            int b/*s*/ = 0;
+            BigInteger m/*t*/ = p - 1;
+            while (m.IsEven)
+            {
+                m /= 2;
+                b++;
+            }
+
+            for (int i = 0; i < rounds; i++)
+            {
+                // guaranteed to be less than p and small to speed up calculations
+                int a = new Random().Next() + 2; // to prevent 0 and 1
+                BigInteger z/*x*/ = BigInteger.ModPow(a, m, p);
+                if (z == 1 || z == p - 1)
+                {
+                    continue;
                 }
-                i++;
+
+                for (int j = 0; j < b - 1; j++)
+                {
+                    z = BigInteger.ModPow(z, 2, p);
+                    if (z == 1)
+                    {
+                        return false;
+                    }
+
+                    if (z == p - 1)
+                    {
+                        continue;
+                    }
+                }
+                return false;
             }
             return true;
         }
@@ -71,15 +138,23 @@ namespace SHA1_RSA
 
         public static void GetMediumPrimeGeneratorTime(int primeSize, int sampleSize)
         {
-            long time = 0;
+            Stopwatch stopWatch;
+            stopWatch = new Stopwatch();
+            stopWatch.Start();
             for (int i = 0; i < sampleSize; i++)
             {
-                long start = DateTime.Now.Ticks;
                 BigInteger b = GenerateBigPrime(primeSize);
-                time += DateTime.Now.Ticks - start;
             }
-            time /= sampleSize;
+            stopWatch.Stop();
+            long time = ((long) stopWatch.Elapsed.TotalMilliseconds) / sampleSize;
             Console.WriteLine("Medium time = " + time + " msec");
+        }
+
+        private static BigInteger Mod(BigInteger dividend, BigInteger divisor)
+        {
+            BigInteger remainder;
+            BigInteger.DivRem(dividend, divisor, out remainder);
+            return remainder;
         }
     }
 }
