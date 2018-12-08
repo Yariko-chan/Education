@@ -16,6 +16,44 @@ namespace SHA1_RSA
         }
 
         /// <summary>
+        /// Generates BigInteger, whose max common divisor with src is 1
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static BigInteger GenerateMutuallyPrime(BigInteger src)
+        {
+            int size = src.ToByteArray().Length;
+            while (true)
+            {
+                Random rand = new Random();
+                byte[] bytes = new byte[size];
+                rand.NextBytes(bytes);
+                BigInteger result = new BigInteger(bytes);
+                if (result < 0) result = -result;
+                if (BigInteger.GreatestCommonDivisor(src, result) == 1)
+                {
+                    return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Generates nearest BigInteger less then src
+        /// </summary>
+        /// <param name="src">prime number, less which shoul be generated one</param>
+        /// <returns></returns>
+        public static BigInteger GetNearestLessBigPrime(BigInteger src)
+        {
+            // generating less is easier because distance between primes increases as primes increase
+            BigInteger result = src - 2;
+            while (!isPrime(result))
+            {
+                result -= 2;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Generates prime number of declared size in bits
         /// </summary>
         /// <param name="size">size of number in bits</param>

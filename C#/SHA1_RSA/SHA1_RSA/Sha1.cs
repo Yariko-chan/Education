@@ -129,12 +129,6 @@ namespace SHA1_RSA
             Array.Copy(BitConverter.GetBytes(h3), 0, result, 12, 4);
             Array.Copy(BitConverter.GetBytes(h4), 0, result, 16, 4);
             return result;
-
-            //            return h0.ToString("x") + " " + 
-            //                   h1.ToString("x") + " " + 
-            //                   h2.ToString("x") + " " + 
-            //                   h3.ToString("x") + " " + 
-            //                   h4.ToString("x");
         }
 
        

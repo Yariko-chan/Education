@@ -8,17 +8,14 @@ namespace SHA1_RSA
     {
         static void Main(string[] args)
         {
-            //Prime.TestPrimeGenerator(1024, 1);
-            Prime.GetMediumPrimeGeneratorTime(1024, 10);
+            byte[] randomBytes = new byte[1024];
+            new Random().NextBytes(randomBytes);
+            RsaKeys keys = Rsa.generateRsaKeys();
+            BigInteger sign = Rsa.sign(randomBytes, keys.PrivateKey);
+            bool check = Rsa.checkSign(randomBytes, sign, keys.PublicKey);
+            Console.WriteLine(check);
 
             Console.ReadKey();
-        }
-
-        
-
-        public static void rsa()
-        {
-
         }
     }
 }
