@@ -25,46 +25,56 @@ namespace SHA1_RSA
             
 //            GenerateKeys(
 //                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create");
-            GenerateSign(
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.private",
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt",
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create");
-            CheckSign(
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\test_3b21eb8e-ddab-4281-b3c2-595abf4962f3.sign",
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.public",
-                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt");
-            
+//            GenerateSign(
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.private",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create");
+//            CheckSign(
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\test_3b21eb8e-ddab-4281-b3c2-595abf4962f3.sign",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.public",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt");
+
+
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Not enough arguments");
+            }
+
+            try
+            {
+                switch (args[0])
+                {
+                    case Create:
+                        string path = args[1];
+                        if (CheckGenerateParams(path))
+                            GenerateKeys(path);
+                        else Console.WriteLine("Incorrect args");
+                        break;
+                    case Sign:
+                        if (CheckSignParams(args))
+                            GenerateSign(args[1], args[2], args[3]);
+                        else Console.WriteLine("Incorrect args");
+                        break;
+                    case Check:
+                        if (CheckCheckParams(args))
+                            CheckSign(args[1], args[2], args[3]);
+                        else Console.WriteLine("Incorrect args");
+                        break;
+                    default:
+                        Console.WriteLine("Unknown command");
+                        break;
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error reading/writing file : " + e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine("File access not authorized : " + e.Message);
+            }
+
             Console.ReadKey();
-            /*
-
-                        if (args.Length < 2)
-                        {
-                            Console.WriteLine("Not enough arguments");
-                        }
-
-                        switch (args[0])
-                        {
-                            case Create:
-                                string path = args[1];
-                                if (CheckGenerateParams(path))
-                                    GenerateKeys(path);
-                                else Console.WriteLine("Incorrect args");
-                                break;
-                            case Sign:
-                                if (CheckSignParams(args))
-                                    GenerateSign(args[1], args[2], args[3]);
-                                else Console.WriteLine("Incorrect args");
-                                break;
-                            case Check:
-                                if (CheckCheckParams(args))
-                                    CheckSign(args[1], args[2], args[3]);
-                                else Console.WriteLine("Incorrect args");
-                                break;
-                            default:
-                                Console.WriteLine("Unknown command");
-                                break;
-                        }
-                        Console.ReadKey();*/
         }
 
         private static bool CheckGenerateParams(string path)
@@ -107,7 +117,7 @@ namespace SHA1_RSA
             byte[] b = new byte[KeySizeInBytes * 2]; // for two keys, in bytes
             Array.Copy(exp, b, exp.Length);
             Array.Copy(mod, 0, b, KeySizeInBytes + (KeySizeInBytes - mod.Length), mod.Length);
-            WriteFile(publicKeyPath, b);
+            WriteNewFile(publicKeyPath, b);
 
             // write private key file
             Key privateKey = keys.PrivateKey;
@@ -115,15 +125,9 @@ namespace SHA1_RSA
             b = new byte[KeySizeInBytes * 2]; // for two keys, in bytes
             Array.Copy(exp, b, exp.Length);
             Array.Copy(mod, 0, b, KeySizeInBytes + (KeySizeInBytes - mod.Length), mod.Length);
-            WriteFile(privateKeyPath, b);
+            WriteNewFile(privateKeyPath, b);
 
             Console.WriteLine("Generated keys saved to " + keyPath);
-        }
-
-        private static void WriteFile(string publicKeyPath, byte[] b)
-        {
-            FileStream fileStream = File.Create(publicKeyPath);
-            fileStream.Write(b, 0, b.Length);
         }
 
         private static void GenerateSign(string privateKeyPath, string filePath, string savePath)
@@ -138,10 +142,8 @@ namespace SHA1_RSA
             BigInteger sign = Rsa.sign(text, privateKey);
             string signFileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(privateKeyPath) + SignExt;
             String signPath = Path.Combine(savePath, signFileName);
-            FileStream fileStream = File.Create(signPath);
             byte[] signBytes = sign.ToByteArray();
-            fileStream.Write(signBytes, 0, signBytes.Length);
-            fileStream.Close();
+            WriteNewFile(signPath, signBytes);
 
             Console.WriteLine("Sign successfully saved at " + signPath);
         }
@@ -149,7 +151,7 @@ namespace SHA1_RSA
         private static void CheckSign(string signPath, string publicKeyPath, string signedFilePath)
         {
             // get sign to biginteger
-            byte[] b = File.ReadAllBytes(signPath);
+            byte[] b = ReadFile(signPath);
             BigInteger sign = new BigInteger(b);
 
             // get public key as object
@@ -183,9 +185,16 @@ namespace SHA1_RSA
             return text;
         }
 
+        private static void WriteNewFile(string publicKeyPath, byte[] b)
+        {
+            FileStream fileStream = File.Create(publicKeyPath);
+            fileStream.Write(b, 0, b.Length);
+            fileStream.Close();
+        }
+
         private static Key ReadKey(string privateKeyPath)
         {
-            byte[] b = File.ReadAllBytes(privateKeyPath);
+            byte[] b = ReadFile(privateKeyPath);
             byte[] e = new byte[KeySizeInBytes];
             byte[] m = new byte[KeySizeInBytes];
             Array.Copy(b, e, KeySizeInBytes);
