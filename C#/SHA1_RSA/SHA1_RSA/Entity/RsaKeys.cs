@@ -4,6 +4,7 @@ namespace SHA1_RSA
 {
     class RsaKeys
     {
+
         public RsaKeys(BigInteger publicExp, BigInteger privateExp, BigInteger modulus)
         {
             PublicKey = new Key(publicExp, modulus);
@@ -14,4 +15,6 @@ namespace SHA1_RSA
 
         public Key PrivateKey { get; }
     }
+
+
 }

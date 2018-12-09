@@ -26,17 +26,23 @@ namespace SHA1_RSA
             return sha1.Equals(m);
         }
 
-        public static RsaKeys generateRsaKeys()
+        /// <summary>
+        /// Generates public and private key
+        /// </summary>
+        /// <param name="size">size of keys, in bits</param>
+        /// <returns></returns>
+        public static RsaKeys generateRsaKeys(int size)
         {
-            BigInteger p = Prime.GenerateBigPrime(1024);
-            BigInteger q = Prime.GenerateBigPrime(1024);
+            BigInteger p = Prime.GenerateBigPrime(size/2);
+            BigInteger q = Prime.GenerateBigPrime(size/2);
             BigInteger n = p * q;
             BigInteger fn = (p - 1) * (q - 1);
             // e and rEuler should be mutually prime - max common divider is 1
             BigInteger e = Prime.GenerateMutuallyPrime(fn);
             BigInteger d = getD(e, fn);
 
-            return new RsaKeys(e, d, n);
+            Debug.Assert(e * d % fn == 1);
+            return new RsaKeys(d, e, n);
         }
 
         public static BigInteger getD(BigInteger e, BigInteger fn)
@@ -84,12 +90,23 @@ namespace SHA1_RSA
 
         public static void testRsa()
         {
-            RsaKeys rsaKeys = generateRsaKeys();
+            RsaKeys rsaKeys = generateRsaKeys(2048);
 
-            BigInteger m = Prime.GenerateBigPrime(1024);
+            BigInteger m = Prime.GenerateBigPrime(160);
             BigInteger encrypted = BigInteger.ModPow(m, rsaKeys.PrivateKey.Exp, rsaKeys.PrivateKey.Modulus);
             BigInteger decrypted = BigInteger.ModPow(encrypted, rsaKeys.PublicKey.Exp, rsaKeys.PublicKey.Modulus);
             Debug.Assert(m == decrypted);
+            Console.WriteLine(m == decrypted);
+        }
+
+        public static void TestRsaSign()
+        {
+            byte[] randomBytes = new byte[2048];
+            new Random().NextBytes(randomBytes);
+            RsaKeys keys = Rsa.generateRsaKeys(1024);
+            BigInteger sign = Rsa.sign(randomBytes, keys.PrivateKey);
+            bool check = Rsa.checkSign(randomBytes, sign, keys.PublicKey);
+            Console.WriteLine(check);
         }
     }
 }
