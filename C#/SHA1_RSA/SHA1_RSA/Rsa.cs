@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Numerics;
-using System.Security.Cryptography;
+using SHA1_RSA.Entity;
 
 namespace SHA1_RSA
 {
@@ -12,14 +12,14 @@ namespace SHA1_RSA
             // static functions only
         }
 
-        public static BigInteger sign(byte[] message, Key privateKey)
+        public static BigInteger Sign(byte[] message, Key privateKey)
         {
             BigInteger sha1 = new BigInteger(Sha1.calculate(message));
             BigInteger sign = BigInteger.ModPow(sha1, privateKey.Exp, privateKey.Modulus);
             return sign;
         }
 
-        public static bool checkSign(byte[] message, BigInteger sign, Key publicKey)
+        public static bool CheckSign(byte[] message, BigInteger sign, Key publicKey)
         {
             BigInteger sha1 = new BigInteger(Sha1.calculate(message));
             BigInteger m = BigInteger.ModPow(sign, publicKey.Exp, publicKey.Modulus);
@@ -31,21 +31,21 @@ namespace SHA1_RSA
         /// </summary>
         /// <param name="size">size of keys, in bits</param>
         /// <returns></returns>
-        public static RsaKeys generateRsaKeys(int size)
+        public static RsaKeys GenerateRsaKeys(int size)
         {
-            BigInteger p = Prime.GenerateBigPrime(size/2);
-            BigInteger q = Prime.GenerateBigPrime(size/2);
+            BigInteger p = Prime.GenerateBigPrime(size / 2);
+            BigInteger q = Prime.GenerateBigPrime(size / 2);
             BigInteger n = p * q;
             BigInteger fn = (p - 1) * (q - 1);
             // e and rEuler should be mutually prime - max common divider is 1
             BigInteger e = Prime.GenerateMutuallyPrime(fn);
-            BigInteger d = getD(e, fn);
+            BigInteger d = GetD(e, fn);
 
             Debug.Assert(e * d % fn == 1);
             return new RsaKeys(d, e, n);
         }
 
-        public static BigInteger getD(BigInteger e, BigInteger fn)
+        public static BigInteger GetD(BigInteger e, BigInteger fn)
         {
             BigInteger gcd, x, y;
             GcdEuclideanAlgorithm(e, fn, out gcd, out x, out y);
@@ -88,9 +88,9 @@ namespace SHA1_RSA
             x = s;
         }
 
-        public static void testRsa()
+        public static void TestRsa()
         {
-            RsaKeys rsaKeys = generateRsaKeys(2048);
+            RsaKeys rsaKeys = GenerateRsaKeys(1024);
 
             BigInteger m = Prime.GenerateBigPrime(160);
             BigInteger encrypted = BigInteger.ModPow(m, rsaKeys.PrivateKey.Exp, rsaKeys.PrivateKey.Modulus);
@@ -103,9 +103,9 @@ namespace SHA1_RSA
         {
             byte[] randomBytes = new byte[2048];
             new Random().NextBytes(randomBytes);
-            RsaKeys keys = Rsa.generateRsaKeys(1024);
-            BigInteger sign = Rsa.sign(randomBytes, keys.PrivateKey);
-            bool check = Rsa.checkSign(randomBytes, sign, keys.PublicKey);
+            RsaKeys keys = GenerateRsaKeys(1024);
+            BigInteger sign = Sign(randomBytes, keys.PrivateKey);
+            bool check = CheckSign(randomBytes, sign, keys.PublicKey);
             Console.WriteLine(check);
         }
     }

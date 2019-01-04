@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace SHA1_RSA
+namespace SHA1_RSA.Entity
 {
     class RsaKeys
     {
@@ -15,6 +15,4 @@ namespace SHA1_RSA
 
         public Key PrivateKey { get; }
     }
-
-
 }

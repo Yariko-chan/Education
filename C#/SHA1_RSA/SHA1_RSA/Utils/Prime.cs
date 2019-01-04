@@ -34,22 +34,6 @@ namespace SHA1_RSA
         }
 
         /// <summary>
-        /// Generates nearest BigInteger less then src
-        /// </summary>
-        /// <param name="src">prime number, less which shoul be generated one</param>
-        /// <returns></returns>
-        public static BigInteger GetNearestLessBigPrime(BigInteger src)
-        {
-            // generating less is easier because distance between primes increases as primes increase
-            BigInteger result = src - 2;
-            while (!isPrime(result))
-            {
-                result -= 2;
-            }
-            return result;
-        }
-
-        /// <summary>
         /// Generates prime number of declared size in bits
         /// </summary>
         /// <param name="size">size of number in bits</param>
@@ -68,7 +52,6 @@ namespace SHA1_RSA
 
                 BigInteger result = new BigInteger(bytes);
                 if (result < 0) result = -result;
-                //result = 2 * result - 1; // increase probability to get prime
                 if (isPrime(result))
                 {
                     return result;
@@ -80,7 +63,8 @@ namespace SHA1_RSA
 
         public static bool isPrime(BigInteger b)
         {
-            return CheckPrimesLess2000(b) && RabinMillerTest(b, 1);
+            // 5 times enough
+            return CheckPrimesLess2000(b) && RabinMillerTest(b, 30);
         }
 
         /// <summary>
@@ -89,8 +73,8 @@ namespace SHA1_RSA
         ///
         /// Uses wheel factorization to find primes under 2000
         /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="b">number to test</param>
+        /// <returns>is number prime</returns>
         private static bool CheckPrimesLess2000(BigInteger b)
         {
             if (Mod(b, 2) == 0) return false;
@@ -114,16 +98,15 @@ namespace SHA1_RSA
         }
 
         /// <summary>
-        /// Makes one iteration of Rabin-Miller test
+        /// Makes [rounds] of Rabin-Miller test
         /// </summary>
         /// <param name="p">number to test</param>
+        /// <param name="rounds">count of test</param>
         /// <returns></returns>
-        private static bool RabinMillerTest(BigInteger p/*n*/, int rounds/*k*/)
+        private static bool RabinMillerTest(BigInteger p, int rounds)
         {
-            //int b/*s*/ = (int) BigInteger.Log(p - 1, 2.0);
-            //BigInteger m/*t*/ = BigInteger.Divide((p - 1), new BigInteger(Math.Pow(2.0, b)));
-            int b/*s*/ = 0;
-            BigInteger m/*t*/ = p - 1;
+            int b = 0;
+            BigInteger m = p - 1;
             while (m.IsEven)
             {
                 m /= 2;
@@ -134,7 +117,7 @@ namespace SHA1_RSA
             {
                 // guaranteed to be less than p and small to speed up calculations
                 int a = new Random().Next() + 2; // to prevent 0 and 1
-                BigInteger z/*x*/ = BigInteger.ModPow(a, m, p);
+                BigInteger z = BigInteger.ModPow(a, m, p);
                 if (z == 1 || z == p - 1)
                 {
                     continue;
@@ -156,18 +139,6 @@ namespace SHA1_RSA
                 return false;
             }
             return true;
-        }
-
-        public static void TestPrimeGenerator(int primeSize, int sampleSize)
-        {
-            for (int i = 0; i < sampleSize; i++)
-            {
-                BigInteger b = GenerateBigPrime(primeSize);
-                if (!isPrime(b))
-                {
-                    Console.WriteLine("Generated not prime number: " + b);
-                }
-            }
         }
 
         public static void GetMediumPrimeGeneratorTime(int primeSize, int sampleSize)

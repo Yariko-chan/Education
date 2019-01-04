@@ -1,8 +1,7 @@
 using System;
-using System.CodeDom;
 using System.Numerics;
 using System.IO;
-using System.Text;
+using SHA1_RSA.Entity;
 
 namespace SHA1_RSA
 {
@@ -11,30 +10,29 @@ namespace SHA1_RSA
         private const string Create = "create";
         private const string Sign = "sign";
         private const string Check = "check";
-        private const string KeysDir = "keys";
         private const string PublicExt = ".public";
         private const string PrivateExt = ".private";
         private const string SignExt = ".sign";
 
-        private const int KeySizeInBits = 2048;
-        private const int KeySizeInBytes = 2048 / 8;
+        private const int KeySize = 1024;
+        private const int KeySizeInBytes = KeySize / 8;
 
         static void Main(string[] args)
         {
-//            Rsa.testRsa();
+//            Rsa.TestRsa();
             
 //            GenerateKeys(
 //                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create");
 //            GenerateSign(
-//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.private",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\f5366187-e2e6-470a-868d-d5ebeafe6de4\\f5366187-e2e6-470a-868d-d5ebeafe6de4.private",
 //                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt",
 //                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create");
 //            CheckSign(
-//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\test_3b21eb8e-ddab-4281-b3c2-595abf4962f3.sign",
-//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\3b21eb8e-ddab-4281-b3c2-595abf4962f3\\3b21eb8e-ddab-4281-b3c2-595abf4962f3.public",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\test_f5366187-e2e6-470a-868d-d5ebeafe6de4.sign",
+//                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\create\\f5366187-e2e6-470a-868d-d5ebeafe6de4\\f5366187-e2e6-470a-868d-d5ebeafe6de4.public",
 //                "C:\\Users\\diana\\Dropbox\\бгуир\\криптография\\test\\test.txt");
 
-
+            
             if (args.Length < 2)
             {
                 Console.WriteLine("Not enough arguments");
@@ -73,7 +71,7 @@ namespace SHA1_RSA
             {
                 Console.WriteLine("File access not authorized : " + e.Message);
             }
-
+            
             Console.ReadKey();
         }
 
@@ -102,13 +100,13 @@ namespace SHA1_RSA
 
         private static void GenerateKeys(string path)
         {
-            String name = generateName();
+            String name = GenerateName();
             String keyPath = Path.Combine(path, name);
             Directory.CreateDirectory(keyPath);
             String publicKeyPath = Path.Combine(keyPath, name + PublicExt);
             String privateKeyPath = Path.Combine(keyPath, name + PrivateExt);
 
-            RsaKeys keys = Rsa.generateRsaKeys(KeySizeInBits);
+            RsaKeys keys = Rsa.GenerateRsaKeys(KeySize);
 
             // write public key file
             Key publicKey = keys.PublicKey;
@@ -139,7 +137,7 @@ namespace SHA1_RSA
             var text = ReadFile(filePath);
 
             // generate sign
-            BigInteger sign = Rsa.sign(text, privateKey);
+            BigInteger sign = Rsa.Sign(text, privateKey);
             string signFileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(privateKeyPath) + SignExt;
             String signPath = Path.Combine(savePath, signFileName);
             byte[] signBytes = sign.ToByteArray();
@@ -161,7 +159,7 @@ namespace SHA1_RSA
             var text = ReadFile(signedFilePath);
 
             // check sign, print result
-            bool isCorrect = Rsa.checkSign(text, sign, publicKey);
+            bool isCorrect = Rsa.CheckSign(text, sign, publicKey);
             if (isCorrect)
             {
                 Console.WriteLine("Correct sign");
@@ -173,7 +171,7 @@ namespace SHA1_RSA
             
         }
 
-        private static String generateName()
+        private static String GenerateName()
         {
             return Guid.NewGuid().ToString();
         }
